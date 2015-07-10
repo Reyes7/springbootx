@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="springbootx:jar">
+  <artifact type="jar" build-on-make="true" name="springbootx:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/springbootx_jar</output-path>
     <root id="archive" name="springbootx.jar">
       <element id="module-output" name="springbootx" />
