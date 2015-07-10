@@ -1,15 +1,18 @@
-package rest.service;
+package rest.user;
 
-import rest.database.Database;
-import rest.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class UserService {
+    @Autowired
+    UserRepository repository;
 
-    private Map<Long, User> users = Database.getUsers();
+    private Map<Long, User> users = UserRepository.getUsers();
 
     public UserService(){
         users.put(1L, new User(1L,"John", "Rambo"));

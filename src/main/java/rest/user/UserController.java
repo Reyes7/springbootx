@@ -1,10 +1,9 @@
-package rest.controller;
+package rest.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import rest.model.User;
-import rest.service.UserService;
 
 import java.util.List;
 
@@ -12,7 +11,8 @@ import java.util.List;
 @RequestMapping(value="/users")
 public class UserController {
 
-    private UserService userService = new UserService();
+    @Autowired
+    UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
     public List<User> getUsers(){

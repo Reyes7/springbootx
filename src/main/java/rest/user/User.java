@@ -1,4 +1,4 @@
-package rest.model;
+package rest.user;
 
 public class User {
     private long id;

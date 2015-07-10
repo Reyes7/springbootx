@@ -1,11 +1,12 @@
-package rest.database;
+package rest.user;
 
-import rest.model.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Database {
+@Repository
+public class UserRepository {
 
     private static Map<Long,User> users = new HashMap<Long,User>();
 
