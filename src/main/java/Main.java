@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @EnableAutoConfiguration
-@Configuration
 @ComponentScan
 public class Main {
 
