@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @EnableAutoConfiguration
-@ComponentScan
+//@Configuration
+//@ComponentScan
 public class Main {
 
     @RequestMapping("/")
@@ -23,6 +24,5 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Main.class, args);
-
     }
 }
