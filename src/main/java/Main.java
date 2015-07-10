@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @EnableAutoConfiguration
 //@Configuration
-//@ComponentScan
+@ComponentScan
 public class Main {
 
     @RequestMapping("/")
