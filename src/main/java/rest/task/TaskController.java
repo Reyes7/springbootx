@@ -8,32 +8,44 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/tasks")
+@RequestMapping(value = "/tasks")
 public class TaskController {
 
     @Autowired
     TaskService taskService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Task> getTask(@PathVariable("id") Long id){
-        return new ResponseEntity<Task>(taskService.getTask(id), HttpStatus.OK);
+    public ResponseEntity<Task> getTask(@PathVariable("id") Long id) {
+
+        Task task = taskService.getTask(id);
+
+        if (task == null) {
+            return new ResponseEntity<Task>(task, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<Task>(task, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Task> getTasks(){
+    public List<Task> getTasks() {
         return taskService.getAllTasks();
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Task> addTaks(@RequestBody Task task){
+    public ResponseEntity<Task> addTaks(@RequestBody Task task) {
         taskService.addTask(task);
         return new ResponseEntity<Task>(task, HttpStatus.OK);
     }//{"task" : "new task", "done" : true}
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Task updateTask(@PathVariable("id") Long id, @RequestBody Task task) {
+    public ResponseEntity<Task> updateTask(@PathVariable("id") Long id, @RequestBody Task task) {
         task.setId(id);
-        return taskService.updateTask(task);
+        Task updatedTask = taskService.updateTask(task);
+        if (updatedTask == null) {
+            return new ResponseEntity<Task>(updatedTask, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<Task>(updatedTask, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

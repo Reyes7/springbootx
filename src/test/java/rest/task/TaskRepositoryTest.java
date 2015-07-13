@@ -9,7 +9,7 @@ public class TaskRepositoryTest {
     @Test
     public void newly_created_repository_is_empty() throws Exception {
         TaskRepository taskRepository = new TaskRepository();
-        assertEquals(0,taskRepository.getAll().size());
+        assertEquals(0, taskRepository.getAll().size());
     }
 
     @Test
@@ -23,7 +23,7 @@ public class TaskRepositoryTest {
         assertEquals(true, taskRepository.getAll().isEmpty());
         assertEquals(task, taskRepository.add(task));
         assertEquals(false, taskRepository.getAll().isEmpty());
-        assertEquals(0,taskRepository.getById(0L).getId());
+        assertEquals(0, taskRepository.getById(0L).getId());
     }
 
 
@@ -43,12 +43,12 @@ public class TaskRepositoryTest {
     }
 
     @Test
-    public void testRepositorySize()throws Exception{
+    public void testRepositorySize() throws Exception {
         TaskRepository taskRepository = new TaskRepository();
 
-        for(int i=0;i<3;i++) {
+        for (int i = 0; i < 3; i++) {
             Task task = new Task();
-            task.setTask("Name: "+i);
+            task.setTask("Name: " + i);
             task.setDone(false);
 
             taskRepository.add(task);
@@ -65,11 +65,11 @@ public class TaskRepositoryTest {
 
         taskRepository.add(task);
 
-        int size = taskRepository.getAll().size()-1;
+        int size = taskRepository.getAll().size() - 1;
 
         Task taskfromRepository = taskRepository.getAll().get(size);
 
-        assertEquals(task.getTask(),taskfromRepository.getTask());
-        assertEquals(task.isDone(),taskfromRepository.isDone());
+        assertEquals(task.getTask(), taskfromRepository.getTask());
+        assertEquals(task.isDone(), taskfromRepository.isDone());
     }
 }

@@ -1,6 +1,7 @@
 package rest.task;
 
 import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,26 +10,28 @@ import java.util.Map;
 @Repository
 public class TaskRepository {
 
-    private  Map<Long,Task> tasks = new HashMap<Long,Task>();
+    private Map<Long, Task> tasks = new HashMap<Long, Task>();
     private long id;
 
     public Task getById(long id) {
-        Task task = tasks.get(id);
+        Map<Long, Task> copyOfTasks = new HashMap<Long, Task>();
+        copyOfTasks.putAll(tasks);
+
+        Task task = copyOfTasks.get(id);
         return task;
     }
 
     public List<Task> getAll() {
+        Map<Long, Task> copyOfTasks = new HashMap<Long, Task>();
+        copyOfTasks.putAll(tasks);
+
         return new ArrayList<Task>(tasks.values());
     }
 
     public Task add(Task task) {
+        task.setId(id);
+        id++;
 
-        if(tasks.isEmpty()){
-            task.setId(id);
-        }else {
-            id++;
-            task.setId(id);
-        }
         tasks.put(task.getId(), task);
         return task;
     }
