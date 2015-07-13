@@ -31,5 +31,4 @@ public class TaskService {
         taskRepository.remove(id);
     }
 
-    //{"task" : "new task", "done" : true}
 }

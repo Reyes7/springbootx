@@ -28,7 +28,7 @@ public class TaskController {
     public ResponseEntity<Task> addTaks(@RequestBody Task task){
         taskService.addTask(task);
         return new ResponseEntity<Task>(task, HttpStatus.OK);
-    }
+    }//{"task" : "new task", "done" : true}
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Task updateTask(@PathVariable("id") Long id, @RequestBody Task task) {

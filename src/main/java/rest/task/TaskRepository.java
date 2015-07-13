@@ -10,6 +10,7 @@ import java.util.Map;
 public class TaskRepository {
 
     private  Map<Long,Task> tasks = new HashMap<Long,Task>();
+    private long id;
 
     public Task getById(long id) {
         Task task = tasks.get(id);
@@ -21,7 +22,13 @@ public class TaskRepository {
     }
 
     public Task add(Task task) {
-        task.setId(tasks.size() + 1);
+
+        if(tasks.isEmpty()){
+            task.setId(id);
+        }else {
+            id++;
+            task.setId(id);
+        }
         tasks.put(task.getId(), task);
         return task;
     }
