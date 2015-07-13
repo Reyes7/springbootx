@@ -9,11 +9,7 @@ import java.util.Map;
 @Repository
 public class TaskRepository {
 
-    private static Map<Long,Task> tasks = new HashMap<Long,Task>();
-
-    public static Map<Long, Task> getTasks() {
-        return tasks;
-    }
+    private  Map<Long,Task> tasks = new HashMap<Long,Task>();
 
     public Task getById(long id) {
         Task task = tasks.get(id);
