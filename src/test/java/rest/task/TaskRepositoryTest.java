@@ -26,6 +26,23 @@ public class TaskRepositoryTest {
         assertEquals(0, taskRepository.getById(0L).getId());
     }
 
+    @Test
+    public void testModifyRepositoryWithoutSaving() throws Exception {
+        TaskRepository taskRepository = new TaskRepository();
+
+        for (int i = 0; i < 3; i++) {
+            Task task = new Task();
+            task.setTask("Name: " + i);
+            task.setDone(false);
+
+            taskRepository.add(task);
+
+            Task modifyTask = taskRepository.getById(i);
+            modifyTask.setTask("New name of task ");
+
+            assertNotEquals(task, taskRepository.getById(i));
+        }
+    }
 
     @Test
     public void testDeleteTask() throws Exception {

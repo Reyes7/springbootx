@@ -15,17 +15,35 @@ public class TaskRepository {
 
     public Task getById(long id) {
         Map<Long, Task> copyOfTasks = new HashMap<Long, Task>();
-        copyOfTasks.putAll(tasks);
+        for (Map.Entry<Long, Task> taskEntry : tasks.entrySet()) {
+            long key = taskEntry.getKey();
+            Task task = new Task();
 
-        Task task = copyOfTasks.get(id);
-        return task;
+            task.setId(taskEntry.getValue().getId());
+            task.setTask(taskEntry.getValue().getTask());
+            task.setDone(taskEntry.getValue().isDone());
+
+            copyOfTasks.put(key, task);
+        }
+
+        Task taskCopy = copyOfTasks.get(id);
+        return taskCopy;
     }
 
     public List<Task> getAll() {
         Map<Long, Task> copyOfTasks = new HashMap<Long, Task>();
-        copyOfTasks.putAll(tasks);
+        for (Map.Entry<Long, Task> taskEntry : tasks.entrySet()) {
+            long key = taskEntry.getKey();
+            Task task = new Task();
 
-        return new ArrayList<Task>(tasks.values());
+            task.setId(taskEntry.getValue().getId());
+            task.setTask(taskEntry.getValue().getTask());
+            task.setDone(taskEntry.getValue().isDone());
+
+            copyOfTasks.put(key, task);
+        }
+
+        return new ArrayList<Task>(copyOfTasks.values());
     }
 
     public Task add(Task task) {
