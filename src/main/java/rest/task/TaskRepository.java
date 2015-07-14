@@ -29,6 +29,8 @@ public class TaskRepository {
 
     public Task update(Long id, Task task) {
         Task oldTask = tasks.get(id);
+        if (oldTask == null)
+            throw new TaskNotFound();
         Task updatedTask = oldTask.toBuilder()
                 .setTask(task.getTask())
                 .setDone(task.isDone())
