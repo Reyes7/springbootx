@@ -13,44 +13,41 @@ public class TaskRepositoryTest {
     }
 
     @Test
-    public void testCreateTask() throws Exception {
+    public void check_added_task_is_in_repository() throws Exception {
         TaskRepository taskRepository = new TaskRepository();
 
-        Task task = new Task();
-        task.setTask("Name");
-        task.setDone(false);
+        TaskBuilder taskBuilder = new TaskBuilder();
+        Task task = taskBuilder.getInstanceOfTask(0L,"Task name", false);
 
-        assertEquals(true, taskRepository.getAll().isEmpty());
-        assertEquals(task, taskRepository.add(task));
-        assertEquals(false, taskRepository.getAll().isEmpty());
-        assertEquals(0, taskRepository.getById(0L).getId());
+        Task taskFromRepository = taskRepository.add(task);
+
+        assertNotEquals(0,taskRepository.getAll().size());
+        assertEquals(task.getId(),taskFromRepository.getId());
+        assertEquals(task.getTask(), taskFromRepository.getTask());
+        assertEquals(task.isDone(),taskFromRepository.isDone());
     }
 
     @Test
-    public void testModifyRepositoryWithoutSaving() throws Exception {
+    public void force_update_without_rest_not_working() throws Exception {
         TaskRepository taskRepository = new TaskRepository();
+        TaskBuilder taskBuilder = new TaskBuilder();
 
         for (int i = 0; i < 3; i++) {
-            Task task = new Task();
-            task.setTask("Name: " + i);
-            task.setDone(false);
-
+            Task task = taskBuilder.getInstanceOfTask((long) i, "Task name " + i, false);
             taskRepository.add(task);
 
             Task modifyTask = taskRepository.getById(i);
-            modifyTask.setTask("New name of task ");
+            Task updtatedTask = taskBuilder.getInstanceOfTask((long) i,"New ask name "+i, true);
 
-            assertNotEquals(task, taskRepository.getById(i));
+            assertNotEquals(updtatedTask, taskRepository.getById(i));
         }
     }
-
     @Test
-    public void testDeleteTask() throws Exception {
+    public void check_delete_task_works_well() throws Exception {
         TaskRepository taskRepository = new TaskRepository();
+        TaskBuilder taskBuilder = new TaskBuilder();
 
-        Task task = new Task();
-        task.setTask("Name");
-        task.setDone(false);
+        Task task = taskBuilder.getInstanceOfTask(0L, "Task name ", false);
 
         assertEquals(true, taskRepository.getAll().isEmpty());
         taskRepository.add(task);
@@ -60,33 +57,28 @@ public class TaskRepositoryTest {
     }
 
     @Test
-    public void testRepositorySize() throws Exception {
+    public void all_added_tasks_indexes_is_correct() throws Exception {
         TaskRepository taskRepository = new TaskRepository();
+        TaskBuilder taskBuilder = new TaskBuilder();
 
         for (int i = 0; i < 3; i++) {
-            Task task = new Task();
-            task.setTask("Name: " + i);
-            task.setDone(false);
-
+            Task task = taskBuilder.getInstanceOfTask((long) i, "Task name " + i, false);
             taskRepository.add(task);
         }
-
 
         assertEquals(3, taskRepository.getAll().size());
         taskRepository.remove(2);
         assertEquals(2, taskRepository.getAll().size());
 
-        Task task = new Task();
-        task.setTask("Name: " + 4);
-        task.setDone(false);
+        Task newTask = taskBuilder.getInstanceOfTask((long) 4, "Task name " + 4, false);
 
-        taskRepository.add(task);
+        taskRepository.add(newTask);
 
         int size = taskRepository.getAll().size() - 1;
 
         Task taskfromRepository = taskRepository.getAll().get(size);
 
-        assertEquals(task.getTask(), taskfromRepository.getTask());
-        assertEquals(task.isDone(), taskfromRepository.isDone());
+        assertEquals(newTask.getTask(), taskfromRepository.getTask());
+        assertEquals(newTask.isDone(), taskfromRepository.isDone());
     }
 }

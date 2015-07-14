@@ -13,45 +13,34 @@ public class TaskRepository {
     private Map<Long, Task> tasks = new HashMap<Long, Task>();
     private long id;
 
+
     public Task getById(long id) {
-        Map<Long, Task> copyOfTasks = new HashMap<Long, Task>();
-        for (Map.Entry<Long, Task> taskEntry : tasks.entrySet()) {
-            long key = taskEntry.getKey();
-            Task task = new Task();
+        TaskBuilder taskBuilder = new TaskBuilder();
 
-            task.setId(taskEntry.getValue().getId());
-            task.setTask(taskEntry.getValue().getTask());
-            task.setDone(taskEntry.getValue().isDone());
-
-            copyOfTasks.put(key, task);
-        }
-
-        Task taskCopy = copyOfTasks.get(id);
+        Task taskCopy = taskBuilder.getCopyOfTask(tasks.get(id));
         return taskCopy;
     }
 
     public List<Task> getAll() {
-        Map<Long, Task> copyOfTasks = new HashMap<Long, Task>();
-        for (Map.Entry<Long, Task> taskEntry : tasks.entrySet()) {
-            long key = taskEntry.getKey();
-            Task task = new Task();
+        TaskBuilder taskBuilder = new TaskBuilder();
 
-            task.setId(taskEntry.getValue().getId());
-            task.setTask(taskEntry.getValue().getTask());
-            task.setDone(taskEntry.getValue().isDone());
+        ArrayList<Task> tasksValues = new ArrayList<Task>();
 
-            copyOfTasks.put(key, task);
+        for (Task task : tasks.values()) {
+            tasksValues.add(taskBuilder.getCopyOfTask(task));
         }
 
-        return new ArrayList<Task>(copyOfTasks.values());
+        return tasksValues;
     }
 
     public Task add(Task task) {
-        task.setId(id);
+        TaskBuilder taskBuilder = new TaskBuilder();
+        Task newTask = taskBuilder.getInstanceOfTask(id,task);
+        tasks.put(id, newTask);
+
         id++;
 
-        tasks.put(task.getId(), task);
-        return task;
+        return newTask;
     }
 
     public Task update(Task task) {

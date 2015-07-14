@@ -1,15 +1,11 @@
 package rest.task;
 
 public class Task {
-    private long id;
-    private String task;
-    private boolean done=false;
+    private final long id;
+    private final String task;
+    private final boolean done;
 
-    public Task(){
-
-    }
-
-    public Task(long id,String task, boolean done) {
+    public Task(long id, String task, boolean done) {
         this.id = id;
         this.task = task;
         this.done = done;
@@ -19,24 +15,12 @@ public class Task {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getTask() {
         return task;
     }
 
-    public void setTask(String task) {
-        this.task = task;
-    }
-
     public boolean isDone() {
         return done;
-    }
-
-    public void setDone(boolean done) {
-        this.done = done;
     }
 
     @Override

@@ -39,7 +39,9 @@ public class TaskController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Task> updateTask(@PathVariable("id") Long id, @RequestBody Task task) {
-        task.setId(id);
+        TaskBuilder taskBuider = new TaskBuilder();
+        task = taskBuider.getInstanceOfTask(id,task);
+
         Task updatedTask = taskService.updateTask(task);
         if (updatedTask == null) {
             return new ResponseEntity<Task>(updatedTask, HttpStatus.NOT_FOUND);
