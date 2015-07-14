@@ -2,8 +2,6 @@ package rest.task;
 
 import org.junit.Test;
 
-import java.util.Optional;
-
 import static org.junit.Assert.*;
 
 public class TaskRepositoryTest {
@@ -18,8 +16,8 @@ public class TaskRepositoryTest {
     public void check_added_task_is_in_repository() throws Exception {
         TaskRepository taskRepository = new TaskRepository();
 
-        TaskBuilder taskBuilder = new TaskBuilder();
-        Task task = taskBuilder.getInstanceOfTask(0L, "Task name", false);
+        Task.Builder builder = new Task.Builder();
+        Task task = builder.getInstanceOfTask(0L, "Task name", false);
 
         Task taskFromRepository = taskRepository.add(task);
 
@@ -32,13 +30,13 @@ public class TaskRepositoryTest {
     @Test
     public void force_update_without_rest_not_working() throws Exception {
         TaskRepository taskRepository = new TaskRepository();
-        TaskBuilder taskBuilder = new TaskBuilder();
+        Task.Builder builder = new Task.Builder();
 
         for (int i = 0; i < 3; i++) {
-            Task task = taskBuilder.getInstanceOfTask((long) i, "Task name " + i, false);
+            Task task = builder.getInstanceOfTask((long) i, "Task name " + i, false);
             taskRepository.add(task);
 
-            Task updtatedTask = taskBuilder.getInstanceOfTask((long) i, "New ask name " + i, true);
+            Task updtatedTask = builder.getInstanceOfTask((long) i, "New ask name " + i, true);
 
             assertNotEquals(updtatedTask, taskRepository.getById(i));
         }
@@ -47,9 +45,9 @@ public class TaskRepositoryTest {
     @Test
     public void check_delete_task_works_well() throws Exception {
         TaskRepository taskRepository = new TaskRepository();
-        TaskBuilder taskBuilder = new TaskBuilder();
+        Task.Builder builder = new Task.Builder();
 
-        Task task = taskBuilder.getInstanceOfTask(0L, "Task name ", false);
+        Task task = builder.getInstanceOfTask(0L, "Task name ", false);
 
         assertEquals(true, taskRepository.getAll().isEmpty());
         taskRepository.add(task);
@@ -61,10 +59,10 @@ public class TaskRepositoryTest {
     @Test
     public void all_added_tasks_indexes_is_correct() throws Exception {
         TaskRepository taskRepository = new TaskRepository();
-        TaskBuilder taskBuilder = new TaskBuilder();
+        Task.Builder builder = new Task.Builder();
 
         for (int i = 0; i < 3; i++) {
-            Task task = taskBuilder.getInstanceOfTask((long) i, "Task name " + i, false);
+            Task task = builder.getInstanceOfTask((long) i, "Task name " + i, false);
             taskRepository.add(task);
         }
 
@@ -72,7 +70,7 @@ public class TaskRepositoryTest {
         taskRepository.remove(2);
         assertEquals(2, taskRepository.getAll().size());
 
-        Task newTask = taskBuilder.getInstanceOfTask((long) 4, "Task name " + 4, false);
+        Task newTask = builder.getInstanceOfTask((long) 4, "Task name " + 4, false);
 
         taskRepository.add(newTask);
 

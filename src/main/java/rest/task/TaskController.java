@@ -6,7 +6,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,8 +35,8 @@ public class TaskController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Task updateTask(@PathVariable("id") Long id, @RequestBody Task task) {
-        TaskBuilder taskBuilder = new TaskBuilder();
-        task = taskBuilder.getInstanceOfTask(id,task);
+        Task.Builder builder = new Task.Builder();
+        task = builder.getInstanceOfTask(id,task);
 
         Optional<Task> updatedTask = taskService.updateTask(task);
         return updatedTask.orElseThrow(TaskNotFound::new);
