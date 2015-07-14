@@ -29,15 +29,15 @@ public class TaskController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Task> addTaks(@RequestBody Task task) {
+    public ResponseEntity<Task> addTask(@RequestBody Task task) {
         taskService.addTask(task);
         return new ResponseEntity<Task>(task, HttpStatus.OK);
     }//{"task" : "new task", "done" : true}
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Task updateTask(@PathVariable("id") Long id, @RequestBody Task task) {
-        TaskBuilder taskBuider = new TaskBuilder();
-        task = taskBuider.getInstanceOfTask(id,task);
+        TaskBuilder taskBuilder = new TaskBuilder();
+        task = taskBuilder.getInstanceOfTask(id,task);
 
         Optional<Task> updatedTask = taskService.updateTask(task);
         return updatedTask.orElseThrow(TaskNotFound::new);
