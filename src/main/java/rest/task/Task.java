@@ -23,6 +23,14 @@ public class Task {
         this.done = done;
     }
 
+    private Task(Builder builder) {
+        this(
+                builder.id,
+                builder.task,
+                builder.done
+        );
+    }
+
     @JsonGetter
     public long getId() {
         return id;
@@ -47,28 +55,39 @@ public class Task {
                 '}';
     }
 
+    public Builder toBuilder() {
+        return new Builder()
+                .setId(id)
+                .setTask(task)
+                .setDone(done);
+    }
+
     public static class Builder {
+
+        private long id;
+        private String task;
+        private boolean done;
 
         public Builder() {
         }
 
-        public Task getInstanceOfTask(long id, String task, boolean done){
-            return new Task(id,task,done);
+        public Builder setId(long id) {
+            this.id = id;
+            return this;
         }
 
-        public Task getInstanceOfTask(long id, Task task){
-            String taskName = task.getTask();
-            boolean done  = task.isDone();
-
-            return new Task(id,taskName,done);
+        public Builder setTask(String task) {
+            this.task = task;
+            return this;
         }
 
-        public Task getCopyOfTask(Task task){
-            long id = task.getId();
-            String taskName = task.getTask();
-            boolean done  = task.isDone();
+        public Builder setDone(boolean done) {
+            this.done = done;
+            return this;
+        }
 
-            return new Task(id,taskName,done);
+        public Task create() {
+            return new Task(this);
         }
     }
 }

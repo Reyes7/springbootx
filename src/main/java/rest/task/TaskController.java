@@ -35,8 +35,7 @@ public class TaskController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Task updateTask(@PathVariable("id") Long id, @RequestBody Task task) {
-        Task.Builder builder = new Task.Builder();
-        task = builder.getInstanceOfTask(id,task);
+        task = task.toBuilder().setId(id).create();
 
         Optional<Task> updatedTask = taskService.updateTask(task);
         return updatedTask.orElseThrow(TaskNotFound::new);

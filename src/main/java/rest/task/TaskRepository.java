@@ -19,8 +19,7 @@ public class TaskRepository {
     }
 
     public Task add(Task task) {
-        Task.Builder builder = new Task.Builder();
-        Task newTask = builder.getInstanceOfTask(id,task);
+        Task newTask = task.toBuilder().setId(id).create();
         tasks.put(id, newTask);
 
         id++;

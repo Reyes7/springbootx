@@ -17,7 +17,7 @@ public class TaskRepositoryTest {
         TaskRepository taskRepository = new TaskRepository();
 
         Task.Builder builder = new Task.Builder();
-        Task task = builder.getInstanceOfTask(0L, "Task name", false);
+        Task task = new Task(0L, "Task name", false);
 
         Task taskFromRepository = taskRepository.add(task);
 
@@ -33,10 +33,10 @@ public class TaskRepositoryTest {
         Task.Builder builder = new Task.Builder();
 
         for (int i = 0; i < 3; i++) {
-            Task task = builder.getInstanceOfTask((long) i, "Task name " + i, false);
+            Task task = new Task((long) i, "Task name " + i, false);
             taskRepository.add(task);
 
-            Task updtatedTask = builder.getInstanceOfTask((long) i, "New ask name " + i, true);
+            Task updtatedTask = new Task((long) i, "New ask name " + i, true);
 
             assertNotEquals(updtatedTask, taskRepository.getById(i));
         }
@@ -47,7 +47,7 @@ public class TaskRepositoryTest {
         TaskRepository taskRepository = new TaskRepository();
         Task.Builder builder = new Task.Builder();
 
-        Task task = builder.getInstanceOfTask(0L, "Task name ", false);
+        Task task = new Task(0L, "Task name ", false);
 
         assertEquals(true, taskRepository.getAll().isEmpty());
         taskRepository.add(task);
@@ -62,7 +62,7 @@ public class TaskRepositoryTest {
         Task.Builder builder = new Task.Builder();
 
         for (int i = 0; i < 3; i++) {
-            Task task = builder.getInstanceOfTask((long) i, "Task name " + i, false);
+            Task task = new Task((long) i, "Task name " + i, false);
             taskRepository.add(task);
         }
 
@@ -70,7 +70,7 @@ public class TaskRepositoryTest {
         taskRepository.remove(2);
         assertEquals(2, taskRepository.getAll().size());
 
-        Task newTask = builder.getInstanceOfTask((long) 4, "Task name " + 4, false);
+        Task newTask = new Task((long) 4, "Task name " + 4, false);
 
         taskRepository.add(newTask);
 
