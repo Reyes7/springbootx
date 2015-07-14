@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -11,7 +12,7 @@ public class TaskService {
     @Autowired
     TaskRepository taskRepository;
 
-    public Task getTask(long id) {
+    public Optional<Task> getTask(long id) {
         return taskRepository.getById(id);
     }
 
@@ -23,8 +24,8 @@ public class TaskService {
         return taskRepository.add(task);
     }
 
-    public Task updateTask(Task task) {
-        return taskRepository.update(task);
+    public Optional<Task> updateTask(Task task) {
+        return Optional.ofNullable(taskRepository.update(task));
     }
 
     public void removeTask(long id) {

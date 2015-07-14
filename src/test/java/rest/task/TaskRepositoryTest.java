@@ -2,6 +2,8 @@ package rest.task;
 
 import org.junit.Test;
 
+import java.util.Optional;
+
 import static org.junit.Assert.*;
 
 public class TaskRepositoryTest {
@@ -17,14 +19,14 @@ public class TaskRepositoryTest {
         TaskRepository taskRepository = new TaskRepository();
 
         TaskBuilder taskBuilder = new TaskBuilder();
-        Task task = taskBuilder.getInstanceOfTask(0L,"Task name", false);
+        Task task = taskBuilder.getInstanceOfTask(0L, "Task name", false);
 
         Task taskFromRepository = taskRepository.add(task);
 
-        assertNotEquals(0,taskRepository.getAll().size());
-        assertEquals(task.getId(),taskFromRepository.getId());
+        assertNotEquals(0, taskRepository.getAll().size());
+        assertEquals(task.getId(), taskFromRepository.getId());
         assertEquals(task.getTask(), taskFromRepository.getTask());
-        assertEquals(task.isDone(),taskFromRepository.isDone());
+        assertEquals(task.isDone(), taskFromRepository.isDone());
     }
 
     @Test
@@ -36,12 +38,12 @@ public class TaskRepositoryTest {
             Task task = taskBuilder.getInstanceOfTask((long) i, "Task name " + i, false);
             taskRepository.add(task);
 
-            Task modifyTask = taskRepository.getById(i);
-            Task updtatedTask = taskBuilder.getInstanceOfTask((long) i,"New ask name "+i, true);
+            Task updtatedTask = taskBuilder.getInstanceOfTask((long) i, "New ask name " + i, true);
 
             assertNotEquals(updtatedTask, taskRepository.getById(i));
         }
     }
+
     @Test
     public void check_delete_task_works_well() throws Exception {
         TaskRepository taskRepository = new TaskRepository();

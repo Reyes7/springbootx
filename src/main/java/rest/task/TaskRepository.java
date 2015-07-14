@@ -2,10 +2,7 @@ package rest.task;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class TaskRepository {
@@ -13,24 +10,12 @@ public class TaskRepository {
     private Map<Long, Task> tasks = new HashMap<Long, Task>();
     private long id;
 
-
-    public Task getById(long id) {
-        TaskBuilder taskBuilder = new TaskBuilder();
-
-        Task taskCopy = taskBuilder.getCopyOfTask(tasks.get(id));
-        return taskCopy;
+    public Optional<Task> getById(long id) {
+        return Optional.ofNullable(tasks.get(id));
     }
 
     public List<Task> getAll() {
-        TaskBuilder taskBuilder = new TaskBuilder();
-
-        ArrayList<Task> tasksValues = new ArrayList<Task>();
-
-        for (Task task : tasks.values()) {
-            tasksValues.add(taskBuilder.getCopyOfTask(task));
-        }
-
-        return tasksValues;
+        return new ArrayList<Task>(tasks.values());
     }
 
     public Task add(Task task) {

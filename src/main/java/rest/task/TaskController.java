@@ -2,10 +2,13 @@ package rest.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/tasks")
@@ -15,15 +18,9 @@ public class TaskController {
     TaskService taskService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Task> getTask(@PathVariable("id") Long id) {
-
-        Task task = taskService.getTask(id);
-
-        if (task == null) {
-            return new ResponseEntity<Task>(task, HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<Task>(task, HttpStatus.OK);
+    public Task getTask(@PathVariable("id") Long id) {
+        Optional<Task> task = taskService.getTask(id);
+        return task.orElseThrow(TaskNotFound::new);
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -31,23 +28,19 @@ public class TaskController {
         return taskService.getAllTasks();
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Task> addTaks(@RequestBody Task task) {
         taskService.addTask(task);
         return new ResponseEntity<Task>(task, HttpStatus.OK);
     }//{"task" : "new task", "done" : true}
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Task> updateTask(@PathVariable("id") Long id, @RequestBody Task task) {
+    public Task updateTask(@PathVariable("id") Long id, @RequestBody Task task) {
         TaskBuilder taskBuider = new TaskBuilder();
         task = taskBuider.getInstanceOfTask(id,task);
 
-        Task updatedTask = taskService.updateTask(task);
-        if (updatedTask == null) {
-            return new ResponseEntity<Task>(updatedTask, HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<Task>(updatedTask, HttpStatus.OK);
+        Optional<Task> updatedTask = taskService.updateTask(task);
+        return updatedTask.orElseThrow(TaskNotFound::new);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

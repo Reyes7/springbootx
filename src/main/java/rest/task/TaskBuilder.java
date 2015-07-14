@@ -2,6 +2,9 @@ package rest.task;
 
 public class TaskBuilder {
 
+    public TaskBuilder() {
+    }
+
     public Task getInstanceOfTask(long id, String task, boolean done){
         return new Task(id,task,done);
     }
