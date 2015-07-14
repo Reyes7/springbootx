@@ -55,6 +55,27 @@ public class Task {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Task task1 = (Task) o;
+
+        if (id != task1.id) return false;
+        if (done != task1.done) return false;
+        return !(task != null ? !task.equals(task1.task) : task1.task != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (task != null ? task.hashCode() : 0);
+        result = 31 * result + (done ? 1 : 0);
+        return result;
+    }
+
     public Builder toBuilder() {
         return new Builder()
                 .setId(id)

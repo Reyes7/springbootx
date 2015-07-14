@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Optional;
+
 import static org.junit.Assert.*;
 
 public class TaskRepositoryTest {
@@ -30,18 +32,6 @@ public class TaskRepositoryTest {
         assertEquals(task.getId(), taskFromRepository.getId());
         assertEquals(task.getTask(), taskFromRepository.getTask());
         assertEquals(task.isDone(), taskFromRepository.isDone());
-    }
-
-    @Test
-    public void force_update_without_rest_not_working() throws Exception {
-        for (int i = 0; i < 3; i++) {
-            Task task = new Task((long) i, "Task name " + i, false);
-            taskRepository.add(task);
-
-            Task updtatedTask = new Task((long) i, "New ask name " + i, true);
-
-            assertNotEquals(updtatedTask, taskRepository.getById(i));
-        }
     }
 
     @Test
