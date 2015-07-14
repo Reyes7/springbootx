@@ -16,7 +16,6 @@ public class TaskRepositoryTest {
     public void check_added_task_is_in_repository() throws Exception {
         TaskRepository taskRepository = new TaskRepository();
 
-        Task.Builder builder = new Task.Builder();
         Task task = new Task(0L, "Task name", false);
 
         Task taskFromRepository = taskRepository.add(task);
@@ -30,7 +29,6 @@ public class TaskRepositoryTest {
     @Test
     public void force_update_without_rest_not_working() throws Exception {
         TaskRepository taskRepository = new TaskRepository();
-        Task.Builder builder = new Task.Builder();
 
         for (int i = 0; i < 3; i++) {
             Task task = new Task((long) i, "Task name " + i, false);
@@ -45,7 +43,6 @@ public class TaskRepositoryTest {
     @Test
     public void check_delete_task_works_well() throws Exception {
         TaskRepository taskRepository = new TaskRepository();
-        Task.Builder builder = new Task.Builder();
 
         Task task = new Task(0L, "Task name ", false);
 
@@ -59,7 +56,6 @@ public class TaskRepositoryTest {
     @Test
     public void all_added_tasks_indexes_is_correct() throws Exception {
         TaskRepository taskRepository = new TaskRepository();
-        Task.Builder builder = new Task.Builder();
 
         for (int i = 0; i < 3; i++) {
             Task task = new Task((long) i, "Task name " + i, false);
