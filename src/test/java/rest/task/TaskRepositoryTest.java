@@ -1,21 +1,27 @@
 package rest.task;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class TaskRepositoryTest {
 
+    private TaskRepository taskRepository;
+
+    @Before
+    public void setUp() throws Exception {
+        taskRepository = new TaskRepository();
+    }
+
     @Test
     public void newly_created_repository_is_empty() throws Exception {
-        TaskRepository taskRepository = new TaskRepository();
         assertEquals(0, taskRepository.getAll().size());
     }
 
     @Test
     public void check_added_task_is_in_repository() throws Exception {
-        TaskRepository taskRepository = new TaskRepository();
-
         Task task = new Task(0L, "Task name", false);
 
         Task taskFromRepository = taskRepository.add(task);
@@ -28,8 +34,6 @@ public class TaskRepositoryTest {
 
     @Test
     public void force_update_without_rest_not_working() throws Exception {
-        TaskRepository taskRepository = new TaskRepository();
-
         for (int i = 0; i < 3; i++) {
             Task task = new Task((long) i, "Task name " + i, false);
             taskRepository.add(task);
@@ -42,8 +46,6 @@ public class TaskRepositoryTest {
 
     @Test
     public void check_delete_task_works_well() throws Exception {
-        TaskRepository taskRepository = new TaskRepository();
-
         Task task = new Task(0L, "Task name ", false);
 
         assertEquals(true, taskRepository.getAll().isEmpty());
@@ -55,8 +57,6 @@ public class TaskRepositoryTest {
 
     @Test
     public void all_added_tasks_indexes_is_correct() throws Exception {
-        TaskRepository taskRepository = new TaskRepository();
-
         for (int i = 0; i < 3; i++) {
             Task task = new Task((long) i, "Task name " + i, false);
             taskRepository.add(task);
