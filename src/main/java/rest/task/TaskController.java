@@ -35,10 +35,7 @@ public class TaskController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public Task updateTask(@PathVariable("id") Long id, @RequestBody Task task) {
-        task = task.toBuilder().setId(id).create();
-
-        Optional<Task> updatedTask = taskService.updateTask(task);
-        return updatedTask.orElseThrow(TaskNotFound::new);
+        return taskService.updateTask(id, task);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

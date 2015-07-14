@@ -27,12 +27,14 @@ public class TaskRepository {
         return newTask;
     }
 
-    public Task update(Task task) {
-        if (task.getId() <= 0) {
-            return null;
-        }
-        tasks.put(task.getId(), task);
-        return task;
+    public Task update(Long id, Task task) {
+        Task oldTask = tasks.get(id);
+        Task updatedTask = oldTask.toBuilder()
+                .setTask(task.getTask())
+                .setDone(task.isDone())
+                .create();
+        tasks.put(id, updatedTask);
+        return updatedTask;
     }
 
     public void remove(long id) {

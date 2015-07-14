@@ -24,8 +24,8 @@ public class TaskService {
         return taskRepository.add(task);
     }
 
-    public Optional<Task> updateTask(Task task) {
-        return Optional.ofNullable(taskRepository.update(task));
+    public Task updateTask(Long id, Task task) {
+        return taskRepository.update(id, task);
     }
 
     public void removeTask(long id) {
