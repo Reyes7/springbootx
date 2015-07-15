@@ -3,31 +3,24 @@ package rest.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-/*
+import javax.annotation.PostConstruct;
+
 @Service
 public class UserService {
     @Autowired
-    UserRepository repository;
+    private UserRepository repository;
 
-    private Map<Long, User> users = UserRepository.getUsers();
-
-    public UserService(){
-        users.put(1L, new User(1L,"John", "Rambo"));
-        users.put(2L, new User(2L,"Johny", "Bravo"));
+    @PostConstruct
+    public void init(){
+        repository.save(new User("John", "Rambo"));
+        repository.save(new User("Johny", "Bravo"));
     }
 
-    public List<User> getAllUsers() {
-        return new ArrayList<User>(users.values());
+    public Iterable<User> getAllUsers() {
+        return repository.findAll();
     }
 
     public User addUser(User user) {
-        user.setId(users.size() + 1);
-        users.put(user.getId(), user);
-        return user;
+        return repository.save(user);
     }
-
 }
-*/
