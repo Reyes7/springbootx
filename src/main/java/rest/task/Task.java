@@ -65,7 +65,6 @@ public class Task {
         if (id != task1.id) return false;
         if (done != task1.done) return false;
         return !(task != null ? !task.equals(task1.task) : task1.task != null);
-
     }
 
     @Override

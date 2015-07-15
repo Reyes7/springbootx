@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/*
 @RestController
 @RequestMapping(value="/users")
 public class UserController {
@@ -25,3 +25,4 @@ public class UserController {
         return new ResponseEntity<User>(user,HttpStatus.OK);
     }//  {"firstName": "New","lastName": "User"}
 }
+*/

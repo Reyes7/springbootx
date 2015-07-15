@@ -1,16 +1,10 @@
 package rest.user;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-@Repository
-public class UserRepository {
+public interface UserRepository extends CrudRepository<User,Integer>{
 
-    private static Map<Long,User> users = new HashMap<Long,User>();
-
-    public static Map<Long, User> getUsers() {
-        return users;
-    }
+    List <User> findByLastName(String lastName);
 }

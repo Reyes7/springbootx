@@ -1,10 +1,7 @@
 package rest.task;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -25,46 +22,38 @@ public class TaskRepositoryTest {
     @Test
     public void check_added_task_is_in_repository() throws Exception {
         Task task = new Task(0L, "Task name", false);
-
-        Task taskFromRepository = taskRepository.add(task);
-
-        assertNotEquals(0, taskRepository.getAll().size());
-        assertEquals(task.getId(), taskFromRepository.getId());
-        assertEquals(task.getTask(), taskFromRepository.getTask());
-        assertEquals(task.isDone(), taskFromRepository.isDone());
-    }
-
-    @Test
-    public void check_delete_task_works_well() throws Exception {
-        Task task = new Task(0L, "Task name ", false);
-
-        assertEquals(true, taskRepository.getAll().isEmpty());
         taskRepository.add(task);
-        assertEquals(false, taskRepository.getAll().isEmpty());
-        taskRepository.remove(0L);
-        assertEquals(true, taskRepository.getAll().isEmpty());
+
+        Task taskFromRepository = taskRepository.getById(0L).get();
+
+        assertEquals(task, taskFromRepository);
     }
 
     @Test
-    public void all_added_tasks_indexes_is_correct() throws Exception {
-        for (int i = 0; i < 3; i++) {
-            Task task = new Task((long) i, "Task name " + i, false);
-            taskRepository.add(task);
-        }
+    public void is_updated_task_in_repository() throws Exception {
+        Task task = new Task(0L, "Task name", false);
+        taskRepository.add(task);
+        Task updateTask = new Task(0L, "New task name", true);
 
-        assertEquals(3, taskRepository.getAll().size());
-        taskRepository.remove(2);
-        assertEquals(2, taskRepository.getAll().size());
+        taskRepository.update(0L,updateTask);
 
-        Task newTask = new Task((long) 4, "Task name " + 4, false);
+        assertEquals(updateTask,taskRepository.getById(0L).get());
+    }
 
-        taskRepository.add(newTask);
+    @Test(expected = TaskNotFound.class)
+    public void updated_not_existing_task_throw_exception() throws Exception {
+        Task updateTask = new Task(0L, "New task name", true);
 
-        int size = taskRepository.getAll().size() - 1;
+        taskRepository.update(10L,updateTask);
+    }
 
-        Task taskfromRepository = taskRepository.getAll().get(size);
-
-        assertEquals(newTask.getTask(), taskfromRepository.getTask());
-        assertEquals(newTask.isDone(), taskfromRepository.isDone());
+    @Test
+    public void deleted_task_is_no_longer_in_repository() throws Exception {
+        // Arrange | Given
+        taskRepository.add(new Task(0L, "Task name ", false));
+        // Act     | When
+        taskRepository.remove(0L);
+        // Assert  | Then
+        assertFalse(taskRepository.getById(0L).isPresent());
     }
 }
