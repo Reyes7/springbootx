@@ -12,8 +12,8 @@ public class UserService {
 
     @PostConstruct
     public void init(){
-        repository.save(new User("John", "Rambo"));
-        repository.save(new User("Johny", "Bravo"));
+        //repository.save(new User("John", "Rambo"));
+        //repository.save(new User("Johny", "Bravo"));
     }
 
     public Iterable<User> getAllUsers() {
