@@ -10,15 +10,20 @@ public class User {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
-    private String firstName;
-    private String lastName;
+    private final Integer id;
+    private final String firstName;
+    private final String lastName;
 
-    public User(){
-
+    private User(UserBuilder builder){
+        this(
+                builder.id,
+                builder.firstname,
+                builder.lastname
+        );
     }
 
-    public User(String firstName, String lastName) {
+    public User(Integer id, String firstName, String lastName) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -26,19 +31,6 @@ public class User {
     public Integer getId() {
         return id;
     }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -54,5 +46,30 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
+    }
+
+    public static class UserBuilder{
+        private Integer id;
+        private String firstname;
+        private String lastname;
+
+        public UserBuilder(){
+
+        };
+
+        public UserBuilder setId(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public UserBuilder setFirstname(String firstname) {
+            this.firstname = firstname;
+            return this;
+        }
+
+        public UserBuilder setLastname(String lastname) {
+            this.lastname = lastname;
+            return this;
+        }
     }
 }
