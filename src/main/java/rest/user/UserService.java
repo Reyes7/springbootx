@@ -1,6 +1,7 @@
 package rest.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -12,8 +13,7 @@ public class UserService {
 
     @PostConstruct
     public void init(){
-        //repository.save(new User("John", "Rambo"));
-        //repository.save(new User("Johny", "Bravo"));
+
     }
 
     public Iterable<User> getAllUsers() {

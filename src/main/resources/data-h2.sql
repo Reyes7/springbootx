@@ -1,8 +1,0 @@
-CREATE TABLE USERS (
-  id        INTEGER PRIMARY KEY,
-  firstname VARCHAR(30),
-  lastname  VARCHAR(50)
-);
-
-INSERT INTO USERS VALUES(1,'Johny', 'Bravo');
-INSERT INTO USERS VALUES(2,'John', 'Rambo');

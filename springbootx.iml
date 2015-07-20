@@ -80,5 +80,9 @@
     <orderEntry type="library" name="Maven: org.jooq:jooq:3.6.1" level="project" />
     <orderEntry type="library" name="Maven: org.jooq:jooq-meta:3.6.1" level="project" />
     <orderEntry type="library" name="Maven: org.jooq:jooq-codegen:3.6.1" level="project" />
+    <orderEntry type="library" name="Maven: org.flywaydb:flyway-core:3.2.1" level="project" />
+    <orderEntry type="library" name="Maven: postgresql:postgresql:9.1-901-1.jdbc4" level="project" />
+    <orderEntry type="library" name="Maven: commons-dbcp:commons-dbcp:1.4" level="project" />
+    <orderEntry type="library" name="Maven: commons-pool:commons-pool:1.6" level="project" />
   </component>
 </module>
