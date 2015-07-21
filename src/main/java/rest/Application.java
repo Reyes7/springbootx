@@ -12,9 +12,6 @@ import rest.config.HerokuDatabaseConfig;
 @SpringBootApplication
 public class Application {
 
-    //@Autowired(required = false)
-    //HerokuDatabaseConfig herokuDatabaseConfig;
-
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
     }
