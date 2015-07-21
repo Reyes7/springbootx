@@ -12,7 +12,7 @@ import rest.config.HerokuDatabaseConfig;
 @SpringBootApplication
 public class Application {
 
-    @Autowired(required = true)
+    @Autowired(required = false)
     HerokuDatabaseConfig herokuDatabaseConfig;
 
     public static void main(String[] args) throws Exception {
