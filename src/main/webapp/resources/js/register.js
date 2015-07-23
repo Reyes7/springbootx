@@ -1,6 +1,6 @@
 var register_app = angular.module('register', []);
 
-register_app.controller('formCtrl', function($scope, $http) {
+register_app.controller('registerController', function($scope, $http) {
     $scope.user = {firstName:"", lastName:""};
 
     $scope.submit = function() {
