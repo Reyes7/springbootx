@@ -9,21 +9,28 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="resources/js/register.js"></script>
+
     <title>Register</title>
 </head>
 <body>
-    <div class="container">
+    <div class="container" ng-app="register" ng-controller="formCtrl">
         <form class="form-register">
             <h2 class="form-register-heading" style="color: #FFFFFF">User Registration</h2>
 
             <div class="form-group">
                 <label for="firstname" class="col-md-4">First Name:</label>
-                <input type="text" class="form-control" id="firstname" placeholder="Enter First Name">
+                <input type="text" class="form-control"
+                       id="firstname" placeholder="Enter First Name"
+                       ng-model="user.firstName">
             </div>
 
             <div class="form-group">
                 <label for="lastname" class="col-md-4">Last Name:</label>
-                <input type="text" class="form-control" id="lastname" placeholder="Enter Last Name">
+                <input type="text" class="form-control"
+                       id="lastname"placeholder="Enter Last Name"
+                       ng-model="user.lastName">
             </div>
 
             <div class="form-group">
@@ -36,8 +43,9 @@
                 <input type="text" class="form-control" id="password" placeholder="Enter Password">
             </div>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Done</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="submit()">Done</button>
         </form>
+        <p>form = {{user }}</p>
     </div>
 </body>
 </html>
