@@ -59,23 +59,23 @@ public class UserRepositoryTest {
                 .andExpect(jsonPath("$[1].lastName", is("Bravo")));
     }
 
-    @Test
-    public void return_all_users_for_lastName() throws Exception {
-        userRepository.save(new User("Martin", "Bravo"));
-
-        String lastName = "Bravo";
-        List<User> users = userRepository.findByLastName(lastName);
-
-        assertEquals(2, users.size());
-        User user0 = users.get(0);
-        User user1 = users.get(1);
-
-        assertEquals("Johny", user0.getFirstName());
-        assertEquals("Martin", user1.getFirstName());
-
-        assertEquals(lastName, user0.getLastName());
-        assertEquals(lastName, user1.getLastName());
-    }
+//    @Test
+//    public void return_all_users_for_lastName() throws Exception {
+//        userRepository.save(new User("Martin", "Bravo"));
+//
+//        String lastName = "Bravo";
+//        List<User> users = userRepository.findByLastName(lastName);
+//
+//        assertEquals(2, users.size());
+//        User user0 = users.get(0);
+//        User user1 = users.get(1);
+//
+//        assertEquals("Johny", user0.getFirstName());
+//        assertEquals("Martin", user1.getFirstName());
+//
+//        assertEquals(lastName, user0.getLastName());
+//        assertEquals(lastName, user1.getLastName());
+//    }
 
 
     @Test
