@@ -15,4 +15,8 @@ public class UserService {
     public User addUser(User user) {
         return repository.save(user);
     }
+
+    public User getUserForLogin(String login){
+        return repository.findByLogin(login);
+    }
 }
