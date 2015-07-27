@@ -30,17 +30,24 @@ public class UserController {
         return new ResponseEntity<User>(user,HttpStatus.OK);
     }//  {"firstName": "New","lastName": "User"}
 
+
     @RequestMapping(value = "/loggin",method = RequestMethod.POST)
     public ResponseEntity<User> logging(@RequestParam(value = "login") String login,
                         @RequestParam(value = "password") String password){
         User user = userService.getUserForLogin(login);
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        boolean isDataValid = passwordEncoder.matches(password,user.getPassword());
+        boolean isDataValid = passwordEncoder.matches(password, user.getPassword());
 
         if(isDataValid){
             return new ResponseEntity<User>(user,HttpStatus.OK);
         }
         return new ResponseEntity<User>(new User(),HttpStatus.NOT_FOUND);
     }
+
+//    @RequestMapping(value = "/user/{id}",method = RequestMethod.GET)
+//    public ResponseEntity<User> getUser(@PathVariable int id){
+//        User user = userService.getUserForId(id);
+//        return new ResponseEntity<User>(user,HttpStatus.OK);
+//    }
 }

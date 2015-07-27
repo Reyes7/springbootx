@@ -19,4 +19,8 @@ public class UserService {
     public User getUserForLogin(String login){
         return repository.findByLogin(login);
     }
+
+    public User getUserForId(int id){
+        return repository.findById(id);
+    }
 }
