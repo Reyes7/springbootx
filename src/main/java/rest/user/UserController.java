@@ -28,7 +28,7 @@ public class UserController {
 
         userService.addUser(user);
         return new ResponseEntity<User>(user,HttpStatus.OK);
-    }//  {"firstName": "New","lastName": "User"}
+    }
 
 
     @RequestMapping(value = "/loggin",method = RequestMethod.POST)
@@ -45,9 +45,9 @@ public class UserController {
         return new ResponseEntity<User>(new User(),HttpStatus.NOT_FOUND);
     }
 
-//    @RequestMapping(value = "/user/{id}",method = RequestMethod.GET)
-//    public ResponseEntity<User> getUser(@PathVariable int id){
-//        User user = userService.getUserForId(id);
-//        return new ResponseEntity<User>(user,HttpStatus.OK);
-//    }
+    @RequestMapping(value = "/user/{id}",method = RequestMethod.GET)
+    public ResponseEntity<User> getUser(@PathVariable int id){
+        User user = userService.getUserForId(id);
+        return new ResponseEntity<User>(user,HttpStatus.OK);
+    }
 }

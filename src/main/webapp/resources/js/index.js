@@ -1,6 +1,6 @@
 var login_app = angular.module('loginApp', []);
 
-login_app.controller('loginController', function($scope, $http) {
+login_app.controller('loginController', function($scope, $http,$window) {
 
     $scope.singIn = function() {
     	$scope.submitting = true;
@@ -17,8 +17,13 @@ login_app.controller('loginController', function($scope, $http) {
     	    data: {login: $scope.login, password: $scope.password}
     	}).success(function(data) {
     	    $scope.submitting = false;
-    	    $scope.login = data.login
-    	    $scope.password = data.password
+
+    	    var id = data.id;
+    	    var yourLogin = data.login
+
+//    	    $window.open("/user/"+id,"_self");
+			$window.open("user.html","_self");
+
     	}).error(function(data, status) {
     	    $scope.submitting = false;
     	    if (status === 400)
