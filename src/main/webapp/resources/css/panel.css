@@ -10,18 +10,18 @@ label{
   font-size: 16px;
 }
 
-.form-register {
+.form-panel {
   max-width: 430px;
   padding: 15px;
   margin: 0 auto;
 }
 
-.form-register .form-register-heading,
-.form-register .checkbox {
+.form-panel .form-panel-heading,
+.form-panel .checkbox {
   margin-bottom: 10px;
 }
 
-.form-register .form-control {
+.form-panel .form-control {
   position: relative;
   height: auto;
   -webkit-box-sizing: border-box;
@@ -31,6 +31,6 @@ label{
   font-size: 16px;
 }
 
-.form-register .form-control:focus {
+.form-panel .form-control:focus {
   z-index: 2;
 }

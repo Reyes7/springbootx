@@ -5,14 +5,56 @@ userApp.config(function($routeProvider) {
 		.when('/', {
 			templateUrl : 'resources/pages/login.html',
 			controller  : 'loginController'
-		});
+		})
+		.when('/user', {
+        	templateUrl : 'resources/pages/user_panel.html',
+        	controller  : 'panelController'
+        });
+});
+
+userApp.service('userService', function() {
+ 	this.userData = {yearSetCount: 0};
+
+  	this.user = function() {
+        return this.userData;
+  	};
+
+  	this.setFirstName = function(firstName) {
+        this.userData.firstName = firstName;
+  	};
+
+  	this.getFirstName = function() {
+        return this.userData.firstName;
+  	};
+
+  	this.setLastName = function(lastName) {
+        this.userData.lastName = lastName;
+  	};
+
+  	this.getLastName = function() {
+        return this.userData.lastName;
+  	};
+
+  	this.setLogin = function(login) {
+        this.userData.login = login;
+  	};
+
+  	this.getLogin = function() {
+        return this.userData.login;
+  	};
 });
 
 userApp.controller('loginController', function($scope) {
-//	$scope.message = 'Everyone come and see how good I look!';
+
 });
 
-userApp.controller('signinController', function($scope, $http,$window) {
+userApp.controller('panelController', function($scope, userService) {
+	$scope.firstName = userService.getFirstName();
+	$scope.lastName = userService.getLastName();
+	$scope.login = userService.getLogin();
+});
+
+userApp.controller('signinController', function($scope, $http,$window, userService) {
 
     $scope.singIn = function() {
     	$scope.submitting = true;
@@ -30,10 +72,11 @@ userApp.controller('signinController', function($scope, $http,$window) {
     	}).success(function(data) {
     	    $scope.submitting = false;
 
-    	    var id = data.id;
+			userService.setFirstName(data.firstName);
+			userService.setLastName(data.lastName);
+			userService.setLogin(data.login);
 
-    	    $window.open("/user/"+id,"_self");
-//			$window.open("user.html","_self");
+			$window.open("#user","_self");
 
     	}).error(function(data, status) {
     	    $scope.submitting = false;
