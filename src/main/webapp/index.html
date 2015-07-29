@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:a="http://www.w3.org/1999/html">
+<html ng-app="userApp">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="resources/css/signin.css">
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
     <script src="resources/js/index.js"></script>
 
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -15,22 +15,8 @@
     <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
     <title>Hello Heroku</title>
 </head>
-<body>
-    <div class="container" ng-app="loginApp" ng-controller="loginController">
 
-        <form class="form-signin">
-            <h2 class="form-signin-heading" style="color: #FFFFFF">Please sign in</h2>
-            <label for="inputLogin" class="sr-only">Login</label>
-            <input type="login" id="inputLogin" class="form-control"
-                   placeholder="Login" autofocus ng-model="login">
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control"
-                   placeholder="Password" ng-model="password">
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="singIn()">Sign in</button>
-
-            <a href="register.html" class="btn btn-lg btn-primary btn-block" type="link" >Register</a>
-        </form>
-    </div>
+<body ng-controller="loginController">
+    <div ng-view></div>
 </body>
 </html>

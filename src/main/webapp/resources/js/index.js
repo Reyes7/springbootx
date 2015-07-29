@@ -1,6 +1,18 @@
-var login_app = angular.module('loginApp', []);
+var userApp = angular.module('userApp', ['ngRoute']);
 
-login_app.controller('loginController', function($scope, $http,$window) {
+userApp.config(function($routeProvider) {
+	$routeProvider
+		.when('/', {
+			templateUrl : 'resources/pages/login.html',
+			controller  : 'loginController'
+		});
+});
+
+userApp.controller('loginController', function($scope) {
+//	$scope.message = 'Everyone come and see how good I look!';
+});
+
+userApp.controller('signinController', function($scope, $http,$window) {
 
     $scope.singIn = function() {
     	$scope.submitting = true;
@@ -19,10 +31,9 @@ login_app.controller('loginController', function($scope, $http,$window) {
     	    $scope.submitting = false;
 
     	    var id = data.id;
-    	    var yourLogin = data.login
 
-//    	    $window.open("/user/"+id,"_self");
-			$window.open("user.html","_self");
+    	    $window.open("/user/"+id,"_self");
+//			$window.open("user.html","_self");
 
     	}).error(function(data, status) {
     	    $scope.submitting = false;
