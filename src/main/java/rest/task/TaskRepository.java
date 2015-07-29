@@ -32,7 +32,7 @@ public class TaskRepository {
         if (oldTask == null)
             throw new TaskNotFound();
         Task updatedTask = oldTask.toBuilder()
-                .setTask(task.getTask())
+                .setTaskName(task.getTaskName())
                 .setDone(task.isDone())
                 .create();
         tasks.put(id, updatedTask);

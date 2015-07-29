@@ -6,27 +6,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Task {
     private final long id;
-    private final String task;
+    private final String taskName;
     private final boolean done;
 
     @JsonCreator
     public Task(
             @JsonProperty("id")
             long id,
-            @JsonProperty("task")
-            String task,
+            @JsonProperty("taskName")
+            String taskName,
             @JsonProperty("done")
             boolean done
     ) {
         this.id = id;
-        this.task = task;
+        this.taskName = taskName;
         this.done = done;
     }
 
     private Task(Builder builder) {
         this(
                 builder.id,
-                builder.task,
+                builder.taskName,
                 builder.done
         );
     }
@@ -37,8 +37,8 @@ public class Task {
     }
 
     @JsonGetter
-    public String getTask() {
-        return task;
+    public String getTaskName() {
+        return taskName;
     }
 
     @JsonGetter
@@ -50,7 +50,7 @@ public class Task {
     public String toString() {
         return "Task{" +
                 "id=" + id +
-                ", task='" + task + '\'' +
+                ", taskName='" + taskName + '\'' +
                 ", done=" + done +
                 '}';
     }
@@ -64,13 +64,13 @@ public class Task {
 
         if (id != task1.id) return false;
         if (done != task1.done) return false;
-        return !(task != null ? !task.equals(task1.task) : task1.task != null);
+        return !(taskName != null ? !taskName.equals(task1.taskName) : task1.taskName != null);
     }
 
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (task != null ? task.hashCode() : 0);
+        result = 31 * result + (taskName != null ? taskName.hashCode() : 0);
         result = 31 * result + (done ? 1 : 0);
         return result;
     }
@@ -78,14 +78,14 @@ public class Task {
     public Builder toBuilder() {
         return new Builder()
                 .setId(id)
-                .setTask(task)
+                .setTaskName(taskName)
                 .setDone(done);
     }
 
     public static class Builder {
 
         private long id;
-        private String task;
+        private String taskName;
         private boolean done;
 
         public Builder() {
@@ -96,8 +96,8 @@ public class Task {
             return this;
         }
 
-        public Builder setTask(String task) {
-            this.task = task;
+        public Builder setTaskName(String taskName) {
+            this.taskName = taskName;
             return this;
         }
 
