@@ -1,6 +1,6 @@
 var register_app = angular.module('register', []);
 
-register_app.controller('registerController', function($scope, $http) {
+register_app.controller('registerController', function($scope, $http, $window) {
     $scope.user = {firstName:"", lastName:"", login:"", password:""};
 
     $scope.submit = function() {
@@ -11,6 +11,7 @@ register_app.controller('registerController', function($scope, $http) {
     	    data: $scope.user
     	}).success(function(data) {
     	    $scope.submitting = false;
+    	    $window.open("/index.html","_self");
     	}).error(function(data, status) {
     	    $scope.submitting = false;
     	    if (status === 400)

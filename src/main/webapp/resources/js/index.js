@@ -13,7 +13,11 @@ userApp.config(function($routeProvider) {
 });
 
 userApp.service('userService', function() {
-  	var user = {};
+  	this.user = {
+    	firstName:"",
+    	lastName:"",
+   		login:""
+    }
 });
 
 userApp.controller('panelController', function($scope, userService) {
