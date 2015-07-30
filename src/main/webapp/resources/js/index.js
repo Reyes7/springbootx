@@ -16,18 +16,11 @@ userApp.config(function($routeProvider) {
         });
 });
 
-userApp.service('userService', function() {
-  	this.user = {
-    	firstName:"",
-    	lastName:"",
-   		login:""
-    }
-});
+userApp.controller('panelController', function($scope, $window) {
 
-userApp.controller('panelController', function($scope, userService) {
-	$scope.firstName = userService.user.firstName;
-	$scope.lastName = userService.user.lastName;
-	$scope.login = userService.user.login;
+	$scope.firstName = $window.sessionStorage.getItem( 'firstName' );
+	$scope.lastName = $window.sessionStorage.getItem( 'lastName' );
+	$scope.login = $window.sessionStorage.getItem( 'login' )
 });
 
 userApp.controller('registerController', function($scope, $http, $window) {
@@ -71,9 +64,9 @@ userApp.controller('loginController', function($scope, $http,$window, userServic
     	}).success(function(data) {
     	    $scope.submitting = false;
 
-			userService.user.firstName = data.firstName;
-			userService.user.lastName = data.lastName;
-			userService.user.login = data.login;
+			$window.sessionStorage.setItem('firstName', data.firstName);
+			$window.sessionStorage.setItem('lastName', data.lastName);
+			$window.sessionStorage.setItem('login', data.login);
 
 			$window.open("#user","_self");
 
