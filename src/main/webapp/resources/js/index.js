@@ -21,6 +21,12 @@ userApp.controller('panelController', function($scope, $window) {
 	$scope.firstName = $window.sessionStorage.getItem( 'firstName' );
 	$scope.lastName = $window.sessionStorage.getItem( 'lastName' );
 	$scope.login = $window.sessionStorage.getItem( 'login' )
+
+	$scope.logout = function() {
+		$window.sessionStorage.clear();
+		$window.open("#/","_self");
+	}
+
 });
 
 userApp.controller('registerController', function($scope, $http, $window) {

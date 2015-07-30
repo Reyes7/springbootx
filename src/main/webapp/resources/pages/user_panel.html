@@ -1,9 +1,23 @@
 <div class="container">
+    <div id="navbar" class="navbar-collapse">
+        <form class="navbar-form navbar-right">
+            <button type="submit" class="btn btn-danger btn-lg" ng-click="logout()">
+                Logout
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="container">
     <form class="form-panel" ng-controller="panelController">
-        <h1 class="form-panel-heading" style="color: #FFFFFF">Hello !  {{login}}</h1>
+        <h1 class="form-panel-heading" style="color: #FFFFFF">Hello ! {{login}}</h1>
+
         <h3 class="form-panel-heading" style="color: #FFFFFF">Check your data:</h3>
-        <h3 class="form-panel-heading" style="color: #FFFFFF">Your first name:  {{firstName}}</h3>
-        <h3 class="form-panel-heading" style="color: #FFFFFF">Your last name:   {{lastName}}</h3>
+
+        <h3 class="form-panel-heading" style="color: #FFFFFF">Your first name: {{firstName}}</h3>
+
+        <h3 class="form-panel-heading" style="color: #FFFFFF">Your last name: {{lastName}}</h3>
     </form>
 
     <form class="taskName-form" ng-controller="panelController">

@@ -34,3 +34,7 @@ label{
 .form-panel .form-control:focus {
   z-index: 2;
 }
+
+.navbar-default .container {
+  color: #022F31 !important;
+}
