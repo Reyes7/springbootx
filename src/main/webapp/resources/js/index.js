@@ -13,45 +13,17 @@ userApp.config(function($routeProvider) {
 });
 
 userApp.service('userService', function() {
- 	this.userData = {yearSetCount: 0};
+  	var user = {};
+});
 
-  	this.user = function() {
-        return this.userData;
-  	};
-
-  	this.setFirstName = function(firstName) {
-        this.userData.firstName = firstName;
-  	};
-
-  	this.getFirstName = function() {
-        return this.userData.firstName;
-  	};
-
-  	this.setLastName = function(lastName) {
-        this.userData.lastName = lastName;
-  	};
-
-  	this.getLastName = function() {
-        return this.userData.lastName;
-  	};
-
-  	this.setLogin = function(login) {
-        this.userData.login = login;
-  	};
-
-  	this.getLogin = function() {
-        return this.userData.login;
-  	};
+userApp.controller('panelController', function($scope, userService) {
+	$scope.firstName = userService.user.firstName;
+	$scope.lastName = userService.user.lastName;
+	$scope.login = userService.user.login;
 });
 
 userApp.controller('loginController', function($scope) {
 
-});
-
-userApp.controller('panelController', function($scope, userService) {
-	$scope.firstName = userService.getFirstName();
-	$scope.lastName = userService.getLastName();
-	$scope.login = userService.getLogin();
 });
 
 userApp.controller('signinController', function($scope, $http,$window, userService) {
@@ -72,9 +44,9 @@ userApp.controller('signinController', function($scope, $http,$window, userServi
     	}).success(function(data) {
     	    $scope.submitting = false;
 
-			userService.setFirstName(data.firstName);
-			userService.setLastName(data.lastName);
-			userService.setLogin(data.login);
+			userService.user.firstName = data.firstName;
+			userService.user.lastName = data.lastName;
+			userService.user.login = data.login;
 
 			$window.open("#user","_self");
 
