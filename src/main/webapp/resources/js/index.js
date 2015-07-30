@@ -46,7 +46,7 @@ userApp.controller('registerController', function($scope, $http, $window) {
     };
 });
 
-userApp.controller('loginController', function($scope, $http,$window, userService) {
+userApp.controller('loginController', function($scope, $http,$window) {
 
     $scope.singIn = function() {
     	$scope.submitting = true;
