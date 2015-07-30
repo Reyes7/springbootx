@@ -17,17 +17,25 @@ public class UserController {
         return userService.getAllUsers();
     }//http://localhost:8080/users
 
-    @RequestMapping(value="/users", method = RequestMethod.POST)
-    public ResponseEntity<User> addUser(@RequestBody User user){
-        String password = user.getPassword();
+    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        String login = user.getLogin();
 
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String hashedPassword = passwordEncoder.encode(password);
+        User findedUser = userService.getUserForLogin(login);
 
-        user.setPassword(hashedPassword);
+        if (findedUser == null) {
 
-        userService.addUser(user);
-        return new ResponseEntity<User>(user,HttpStatus.OK);
+            String password = user.getPassword();
+
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String hashedPassword = passwordEncoder.encode(password);
+
+            user.setPassword(hashedPassword);
+
+            userService.addUser(user);
+            return new ResponseEntity<User>(user, HttpStatus.OK);
+        }
+        return new ResponseEntity<User>(new User(), HttpStatus.BAD_REQUEST);
     }
 
 
