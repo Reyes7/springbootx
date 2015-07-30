@@ -6,6 +6,10 @@ userApp.config(function($routeProvider) {
 			templateUrl : 'resources/pages/login.html',
 			controller  : 'loginController'
 		})
+		.when('/register', {
+        	templateUrl : 'resources/pages/register.html',
+        	controller  : 'registerController'
+        })
 		.when('/user', {
         	templateUrl : 'resources/pages/user_panel.html',
         	controller  : 'panelController'
@@ -26,11 +30,30 @@ userApp.controller('panelController', function($scope, userService) {
 	$scope.login = userService.user.login;
 });
 
-userApp.controller('loginController', function($scope) {
+userApp.controller('registerController', function($scope, $http, $window) {
+    $scope.user = {firstName:"", lastName:"", login:"", password:""};
 
+    $scope.submit = function() {
+    	$scope.submitting = true;
+    	$http({
+    	    method: 'POST',
+    	    url: '/users',
+    	    data: $scope.user
+    	}).success(function(data) {
+    	    $scope.submitting = false;
+
+    	    $window.open("#/","_self");
+    	}).error(function(data, status) {
+    	    $scope.submitting = false;
+    	    if (status === 400)
+    		$scope.badRequest = data;
+    	    else if (status === 409)
+    		$scope.badRequest = 'The name is already used.';
+    	});
+    };
 });
 
-userApp.controller('signinController', function($scope, $http,$window, userService) {
+userApp.controller('loginController', function($scope, $http,$window, userService) {
 
     $scope.singIn = function() {
     	$scope.submitting = true;
