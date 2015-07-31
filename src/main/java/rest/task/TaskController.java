@@ -16,14 +16,15 @@ public class TaskController {
     @Autowired
     TaskService taskService;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Task getTask(@PathVariable("id") Long id) {
-        Optional<Task> task = taskService.getTask(id);
-        return task.orElseThrow(TaskNotFound::new);
-    }
+//    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+//    public Task getTask(@PathVariable("id") int id) {
+//        Optional<Task> task = new Optional<Task>();
+//        taskService.getTask(id);
+//        return task.orElseThrow(TaskNotFound::new);
+//    }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Task> getTasks() {
+    public Iterable<Task> getTasks() {
         return taskService.getAllTasks();
     }
 
@@ -31,15 +32,10 @@ public class TaskController {
     public ResponseEntity<Task> addTask(@RequestBody Task task) {
         taskService.addTask(task);
         return new ResponseEntity<Task>(task, HttpStatus.OK);
-    }//{"task" : "new task", "done" : true}
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Task updateTask(@PathVariable("id") Long id, @RequestBody Task task) {
-        return taskService.updateTask(id, task);
-    }
+    }//{"taskName" : "task Name", "done" : true}
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteTask(@PathVariable("id") Long id) {
+    public void deleteTask(@PathVariable("id") int id) {
         taskService.removeTask(id);
     }
 

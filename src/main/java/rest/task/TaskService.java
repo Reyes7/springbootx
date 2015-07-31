@@ -12,24 +12,24 @@ public class TaskService {
     @Autowired
     TaskRepository taskRepository;
 
-    public Optional<Task> getTask(long id) {
-        return taskRepository.getById(id);
+    public Task getTask(int id) {
+        return taskRepository.findOne(id);
     }
 
-    public List<Task> getAllTasks() {
-        return taskRepository.getAll();
+    public Iterable<Task> getAllTasks() {
+        return taskRepository.findAll();
     }
 
     public Task addTask(Task task) {
-        return taskRepository.add(task);
+        return taskRepository.save(task);
     }
 
-    public Task updateTask(Long id, Task task) {
-        return taskRepository.update(id, task);
-    }
+//    public Task updateTask(int id, Task task) {
+//        return taskRepository.update(id, task);
+//    }
 
-    public void removeTask(long id) {
-        taskRepository.remove(id);
+    public void removeTask(int id) {
+        taskRepository.delete(id);
     }
 
 }

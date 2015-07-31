@@ -40,47 +40,43 @@ public class UserRepositoryTest {
 
     @Before
     public void setUp() throws Exception{
+        userRepository.deleteAll();
+        userRepository.save(new User("Martin", "Bravo","mBravo","bravo123"));
+        userRepository.save(new User("Johny", "Bravo", "jBravo", "johny123"));
 
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
     @Test
     public void return_all_persisted_users () throws Exception {
-
         mockMvc.perform(get("/users"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].id", is((int) 1)))
-                .andExpect(jsonPath("$[0].firstName", is("John")))
-                .andExpect(jsonPath("$[0].lastName", is("Rambo")))
+                .andExpect(jsonPath("$[0].firstName", is("Martin")))
+                .andExpect(jsonPath("$[0].lastName", is("Bravo")))
                 .andExpect(jsonPath("$[1].id", is((int) 2)))
                 .andExpect(jsonPath("$[1].firstName", is("Johny")))
                 .andExpect(jsonPath("$[1].lastName", is("Bravo")));
     }
 
-//    @Test
-//    public void return_all_users_for_lastName() throws Exception {
-//        userRepository.save(new User("Martin", "Bravo"));
-//
-//        String lastName = "Bravo";
-//        List<User> users = userRepository.findByLastName(lastName);
-//
-//        assertEquals(2, users.size());
-//        User user0 = users.get(0);
-//        User user1 = users.get(1);
-//
-//        assertEquals("Johny", user0.getFirstName());
-//        assertEquals("Martin", user1.getFirstName());
-//
-//        assertEquals(lastName, user0.getLastName());
-//        assertEquals(lastName, user1.getLastName());
-//    }
+    @Test
+    public void return_all_users_for_lastName() throws Exception {
+        String lastName = "Bravo";
+        List<User> users = userRepository.findByLastName(lastName);
 
+        assertEquals(2, users.size());
+        User user0 = users.get(0);
+        User user1 = users.get(1);
+
+        assertEquals(lastName, user0.getLastName());
+        assertEquals(lastName, user1.getLastName());
+    }
 
     @Test
     public void test_FlyWay_initscript_data_count_is_two() throws Exception {
-        assertEquals(new Integer(3), this.template.queryForObject(
+        assertEquals(new Integer(2), this.template.queryForObject(
                 "SELECT COUNT(*) from USER", Integer.class));
     }
 }
