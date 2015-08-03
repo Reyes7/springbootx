@@ -1,5 +1,8 @@
-<div class="container">
+<div class="container center_div">
     <div id="navbar" class="navbar-collapse">
+        <div class="navbar-header">
+            <h1 class="form-panel-heading" style="color: #FFFFFF">Hello ! {{login}}</h1>
+        </div>
         <form class="navbar-form navbar-right">
             <button type="submit" class="btn btn-danger btn-lg" ng-click="logout()">
                 Logout
@@ -9,10 +12,8 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container form-panel">
     <form class="form-panel" ng-controller="panelController">
-        <h1 class="form-panel-heading" style="color: #FFFFFF">Hello ! {{login}}</h1>
-
         <h3 class="form-panel-heading" style="color: #FFFFFF">Check your data:</h3>
 
         <h3 class="form-panel-heading" style="color: #FFFFFF">Your first name: {{firstName}}</h3>
@@ -20,7 +21,15 @@
         <h3 class="form-panel-heading" style="color: #FFFFFF">Your last name: {{lastName}}</h3>
     </form>
 
-    <form class="taskName-form" ng-controller="panelController">
-        <h2 class="form-panel-heading" style="color: #FFFFFF">Your taskName list:</h2>
+    <form class="taskName-form" ng-controller="taskController">
+        <h2 class="form-panel-heading" style="color: #FFFFFF">Task:</h2>
+
+        <input type="taskName" id="inputTaskName" class="form-control"
+               placeholder="Enter the name of Your Task" ng-model="task.taskName"/>
+
+        <button class=".btn btn-primary" ng-click="addTask()">Add Task</button>
+        <button class=".btn btn-primary">Update Task</button>
+        <button class=".btn btn-primary">Delete Task</button>
+        <h2 class="form-panel-heading" style="color: #FFFFFF">Your Tasks:</h2>
     </form>
 </div>

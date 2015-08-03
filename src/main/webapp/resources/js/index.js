@@ -3,21 +3,20 @@ var userApp = angular.module('userApp', ['ngRoute']);
 userApp.config(function($routeProvider) {
 	$routeProvider
 		.when('/', {
-			templateUrl : 'resources/pages/login.html',
+			templateUrl : 'WEB-INF/pages/login.html',
 			controller  : 'loginController'
 		})
 		.when('/register', {
-        	templateUrl : 'resources/pages/register.html',
+        	templateUrl : 'WEB-INF/pages/register.html',
         	controller  : 'registerController'
         })
 		.when('/user', {
-        	templateUrl : 'resources/pages/user_panel.html',
+        	templateUrl : 'WEB-INF/pages/user_panel.html',
         	controller  : 'panelController'
         });
 });
 
 userApp.controller('panelController', function($scope, $window) {
-
 	$scope.firstName = $window.sessionStorage.getItem( 'firstName' );
 	$scope.lastName = $window.sessionStorage.getItem( 'lastName' );
 	$scope.login = $window.sessionStorage.getItem( 'login' )
@@ -50,6 +49,27 @@ userApp.controller('registerController', function($scope, $http, $window) {
     		$scope.badRequest = 'The name is already used.';
     	});
     };
+});
+
+userApp.controller('taskController', function($scope, $http) {
+	$scope.task = {"taskName" : "", "done" : false};
+
+	$scope.addTask = function() {
+		$scope.submitting = true;
+		$http({
+			method: 'POST',
+			url: '/tasks',
+			data: $scope.task
+		}).success(function(data) {
+			$scope.submitting = false;
+		}).error(function(data, status) {
+			$scope.submitting = false;
+			if (status === 400)
+				$scope.badRequest = data;
+			else if (status === 409)
+				$scope.badRequest = 'Unkown Error !.';
+		});
+	};
 });
 
 userApp.controller('loginController', function($scope, $http,$window) {
