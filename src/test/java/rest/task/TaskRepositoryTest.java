@@ -49,15 +49,15 @@ public class TaskRepositoryTest {
         assertEquals(0, taskRepository.count());
     }
 
-    @Test
-    public void check_added_task_is_in_repository() throws Exception {
-        Task task = new Task("New Task", true);
-        taskRepository.save(task);
-
-        Task taskFromRepository = taskRepository.findByName("New Task");
-
-        assertTrue(task.equals(taskFromRepository));
-    }
+//    @Test
+//    public void check_added_task_is_in_repository() throws Exception {
+//        Task task = new Task("New Task", true);
+//        taskRepository.save(task);
+//
+//        Task taskFromRepository = taskRepository.findByName("New Task");
+//
+//        assertTrue(task.equals(taskFromRepository));
+//    }
 
     @Test
     public void deleted_task_is_no_longer_in_repository() throws Exception {

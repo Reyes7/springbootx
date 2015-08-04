@@ -4,6 +4,11 @@
             <h1 class="form-panel-heading" style="color: #FFFFFF">Hello ! {{login}}</h1>
         </div>
         <form class="navbar-form navbar-right">
+            <button type="submit" class="btn btn-success btn-lg" ng-click="openUserProfile()">
+                Profile
+                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            </button>
+
             <button type="submit" class="btn btn-danger btn-lg" ng-click="logout()">
                 Logout
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
@@ -13,14 +18,6 @@
 </div>
 
 <div class="container form-panel">
-    <form class="form-panel" ng-controller="panelController">
-        <h3 class="form-panel-heading" style="color: #FFFFFF">Check your data:</h3>
-
-        <h3 class="form-panel-heading" style="color: #FFFFFF">Your first name: {{firstName}}</h3>
-
-        <h3 class="form-panel-heading" style="color: #FFFFFF">Your last name: {{lastName}}</h3>
-    </form>
-
     <form class="taskName-form" ng-controller="taskController">
         <h2 class="form-panel-heading" style="color: #FFFFFF">Task:</h2>
 
@@ -31,5 +28,21 @@
         <button class=".btn btn-primary">Update Task</button>
         <button class=".btn btn-primary">Delete Task</button>
         <h2 class="form-panel-heading" style="color: #FFFFFF">Your Tasks:</h2>
+
+        <table id="table" data-height="299" style="color: #FFFFFF">
+            <thead>
+            <tr>
+                <th data-field="id">
+                    <font color="white">Task id</font>
+                </th>
+                <th data-field="taskName">
+                    <font color="white">Task Name</font>
+                </th>
+                <th data-field="done">
+                    <font color="white">Task Status</font>
+                </th>
+            </tr>
+            </thead>
+        </table>
     </form>
 </div>

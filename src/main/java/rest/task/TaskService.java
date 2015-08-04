@@ -20,13 +20,17 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
+    public Iterable<Task> getTasksByName(String name){
+        return taskRepository.findByName(name);
+    }
+
+    public Iterable<Task> getTasksByUserLogin(String login){
+        return taskRepository.findByUserLogin(login);
+    }
+
     public Task addTask(Task task) {
         return taskRepository.save(task);
     }
-
-//    public Task updateTask(int id, Task task) {
-//        return taskRepository.update(id, task);
-//    }
 
     public void removeTask(int id) {
         taskRepository.delete(id);

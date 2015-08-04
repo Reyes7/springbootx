@@ -24,7 +24,6 @@ public class UserController {
         User findedUser = userService.getUserForLogin(login);
 
         if (findedUser == null) {
-
             String password = user.getPassword();
 
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -53,9 +52,15 @@ public class UserController {
         return new ResponseEntity<User>(new User(),HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/user/{id}",method = RequestMethod.GET)
-    public ResponseEntity<User> getUser(@PathVariable int id){
-        User user = userService.getUserForId(id);
+//    @RequestMapping(value = "/user/{id}",method = RequestMethod.GET)
+//    public ResponseEntity<User> getUser(@PathVariable int id){
+//        User user = userService.getUserForId(id);
+//        return new ResponseEntity<User>(user,HttpStatus.OK);
+//    }
+
+    @RequestMapping(value = "/user/{login}",method = RequestMethod.GET)
+    public ResponseEntity<User> getUser(@PathVariable String login){
+        User user = userService.getUserForLogin(login);
         return new ResponseEntity<User>(user,HttpStatus.OK);
     }
 }

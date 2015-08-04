@@ -1,0 +1,27 @@
+<div class="container center_div">
+    <div id="navbar" class="navbar-collapse" ng-controller="panelController">
+        <div class="navbar-header">
+            <h1 class="form-panel-heading" style="color: #FFFFFF">Hello ! {{login}}</h1>
+        </div>
+        <form class="navbar-form navbar-right">
+            <a href="#/user" type="submit" class="btn btn-success btn-lg">
+                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                Back
+            </a>
+
+            <button type="submit" class="btn btn-danger btn-lg" ng-click="logout()">
+                Logout
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="container form-panel">
+    <form class="taskName-form" ng-controller="profileController">
+        <h2 class="form-panel-heading" style="color: #FFFFFF">Check your data:</h2>
+
+        <h3 class="form-panel-heading" style="color: #FFFFFF">Your first name: {{user.firstName}}</h3>
+        <h3 class="form-panel-heading" style="color: #FFFFFF">Your last name: {{user.lastName}}</h3>
+    </form>
+</div>

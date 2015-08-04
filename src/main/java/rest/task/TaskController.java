@@ -5,9 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
+import rest.user.User;
+import rest.user.UserService;
 
 @RestController
 @RequestMapping(value = "/tasks")
@@ -16,23 +15,32 @@ public class TaskController {
     @Autowired
     TaskService taskService;
 
-//    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-//    public Task getTask(@PathVariable("id") int id) {
-//        Optional<Task> task = new Optional<Task>();
-//        taskService.getTask(id);
-//        return task.orElseThrow(TaskNotFound::new);
-//    }
+    @Autowired
+    UserService userService;
+
+    @RequestMapping(value = "{login}",
+                    method = RequestMethod.GET,
+                    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Iterable<Task> getTaskForLogin(@PathVariable String login) {
+        return taskService.getTasksByUserLogin(login);
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<Task> getTasks() {
         return taskService.getAllTasks();
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Task> addTask(@RequestBody Task task) {
+    @RequestMapping(value = "{login}",
+                    method = RequestMethod.POST,
+                    consumes = MediaType.APPLICATION_JSON_VALUE,
+                    produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Task> addTask(@PathVariable String login, @RequestBody Task task) {
+        User user = userService.getUserForLogin(login);
+        task.setUser(user);
+
         taskService.addTask(task);
         return new ResponseEntity<Task>(task, HttpStatus.OK);
-    }//{"taskName" : "task Name", "done" : true}
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void deleteTask(@PathVariable("id") int id) {

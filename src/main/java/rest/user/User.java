@@ -1,6 +1,11 @@
 package rest.user;
 
+import org.springframework.cloud.cloudfoundry.com.fasterxml.jackson.annotation.JsonIgnore;
+import rest.task.Task;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -12,6 +17,10 @@ public class User {
     private String lastName;
     private String login;
     private String password;
+
+    @JsonIgnore
+    @OneToMany
+    private Set<Task> tasks = new HashSet<Task>();
 
     public User(){
 
@@ -62,6 +71,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override
