@@ -36,4 +36,15 @@ public class TaskService {
         taskRepository.delete(id);
     }
 
+    public Task updateTask(int id){
+        Task task = taskRepository.findOne(id);
+        Task newTask = Task.copyTask(task);
+
+        if(task.isDone()) newTask.setDone(false);
+        else newTask.setDone(true);
+
+        taskRepository.delete(id);
+        return taskRepository.save(newTask);
+    }
+
 }

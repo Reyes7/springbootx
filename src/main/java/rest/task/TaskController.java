@@ -47,4 +47,10 @@ public class TaskController {
         taskService.removeTask(id);
     }
 
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    public ResponseEntity<Task> updateTask(@PathVariable("id") int id) {
+        Task task = taskService.updateTask(id);
+        return new ResponseEntity<Task>(task, HttpStatus.OK);
+    }
+
 }

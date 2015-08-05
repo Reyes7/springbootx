@@ -105,6 +105,19 @@ userApp.controller('taskController', function($scope, $http,$window,$route) {
 		});
 	};
 
+	$scope.updateTask = function() {
+		var selects = $('#table').bootstrapTable('getSelections');
+		ids = $.map(selects, function (row) {
+			return row.id;
+		});
+
+		for(var i = 0; i < ids.length; i++) {
+			$http.get('/tasks/' + ids[i]);
+		}
+
+		$route.reload();
+	}
+
 	$scope.deleteTask = function() {
 		var selects = $('#table').bootstrapTable('getSelections');
 		ids = $.map(selects, function (row) {

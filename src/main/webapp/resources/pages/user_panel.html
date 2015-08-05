@@ -22,14 +22,14 @@
         <h2 class="form-panel-heading" style="color: #FFFFFF">Task:</h2>
 
         <input type="taskName" id="inputTaskName" class="form-control"
-               placeholder="Enter the name of Your Task" ng-model="task.taskName"/>
+               placeholder="Enter the name of Your New Task" ng-model="task.taskName"/>
 
         <button class=".btn btn-primary" ng-click="addTask()">Add Task</button>
-        <button class=".btn btn-primary">Update Task</button>
+        <button class=".btn btn-primary" ng-click="updateTask()">Change Status</button>
         <button class=".btn btn-primary" ng-click="deleteTask()">Delete Task</button>
         <h2 class="form-panel-heading" style="color: #FFFFFF">Your Tasks:</h2>
 
-        <table id="table" data-height="299" style="color: #FFFFFF">
+        <table id="table" data-height="299" class="table-stripped" style="color: #FFFFFF">
             <thead>
             <tr>
                 <th data-field="state" data-checkbox="true"></th>
