@@ -72,7 +72,6 @@ userApp.controller('loginController', function($scope, $http,$window) {
     	    data: {login: $scope.login, password: $scope.password}
     	}).success(function(data) {
     	    $scope.submitting = false;
-
 			$window.sessionStorage.setItem('login', data.login);
 			$window.open("#/user","_self");
     	}).error(function(data, status) {

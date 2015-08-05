@@ -18,10 +18,12 @@
 </div>
 
 <div class="container form-panel">
-    <form class="taskName-form" ng-controller="profileController">
+    <form class="taskName-form" ng-controller="profileController" data-ng-init="getUser()">
         <h2 class="form-panel-heading" style="color: #FFFFFF">Check your data:</h2>
 
         <h3 class="form-panel-heading" style="color: #FFFFFF">Your first name: {{user.firstName}}</h3>
         <h3 class="form-panel-heading" style="color: #FFFFFF">Your last name: {{user.lastName}}</h3>
+        <button class="btn btn-warning">Update Profile</button>
+        <button class="btn btn-danger">Remove Account</button>
     </form>
 </div>
