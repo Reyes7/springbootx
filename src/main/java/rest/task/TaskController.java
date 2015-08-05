@@ -21,7 +21,7 @@ public class TaskController {
     @RequestMapping(value = "{login}",
                     method = RequestMethod.GET,
                     produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Task> getTaskForLogin(@PathVariable String login) {
+    public Iterable<Task> getTasksForLogin(@PathVariable String login) {
         return taskService.getTasksByUserLogin(login);
     }
 
@@ -42,7 +42,7 @@ public class TaskController {
         return new ResponseEntity<Task>(task, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void deleteTask(@PathVariable("id") int id) {
         taskService.removeTask(id);
     }

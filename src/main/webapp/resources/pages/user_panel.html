@@ -26,20 +26,18 @@
 
         <button class=".btn btn-primary" ng-click="addTask()">Add Task</button>
         <button class=".btn btn-primary">Update Task</button>
-        <button class=".btn btn-primary">Delete Task</button>
+        <button class=".btn btn-primary" ng-click="deleteTask()">Delete Task</button>
         <h2 class="form-panel-heading" style="color: #FFFFFF">Your Tasks:</h2>
 
         <table id="table" data-height="299" style="color: #FFFFFF">
             <thead>
             <tr>
-                <th data-field="id">
-                    <font color="white">Task id</font>
-                </th>
+                <th data-field="state" data-checkbox="true"></th>
                 <th data-field="taskName">
                     <font color="white">Task Name</font>
                 </th>
                 <th data-field="done">
-                    <font color="white">Task Status</font>
+                    <font color="white">Is Done ?</font>
                 </th>
             </tr>
             </thead>
