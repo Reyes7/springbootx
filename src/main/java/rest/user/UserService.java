@@ -23,4 +23,8 @@ public class UserService {
     public User getUserForId(int id){
         return repository.findById(id);
     }
+
+    public void deleteUser(int id){
+        repository.delete(id);
+    }
 }

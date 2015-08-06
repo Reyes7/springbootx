@@ -142,4 +142,10 @@ userApp.controller('profileController', function ($scope, $http,$window) {
 					$scope.user = data;
 				});
 	}
+
+	$scope.deleteUser = function(){
+		$http.delete('/user/'+ $window.sessionStorage.getItem( 'login' ));
+		$window.sessionStorage.clear();
+		$window.open("#/","_self");
+	}
 });

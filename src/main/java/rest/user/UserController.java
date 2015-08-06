@@ -52,15 +52,15 @@ public class UserController {
         return new ResponseEntity<User>(new User(),HttpStatus.NOT_FOUND);
     }
 
-//    @RequestMapping(value = "/user/{id}",method = RequestMethod.GET)
-//    public ResponseEntity<User> getUser(@PathVariable int id){
-//        User user = userService.getUserForId(id);
-//        return new ResponseEntity<User>(user,HttpStatus.OK);
-//    }
-
     @RequestMapping(value = "/user/{login}",method = RequestMethod.GET)
     public ResponseEntity<User> getUser(@PathVariable String login){
         User user = userService.getUserForLogin(login);
         return new ResponseEntity<User>(user,HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/user/{login}",method = RequestMethod.DELETE)
+    public void deleteUser(@PathVariable String login){
+        User user = userService.getUserForLogin(login);
+        userService.deleteUser(user.getId());
     }
 }
