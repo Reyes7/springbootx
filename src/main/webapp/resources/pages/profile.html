@@ -6,7 +6,7 @@
         <form class="navbar-form navbar-right">
             <a href="#/user" type="submit" class="btn btn-success btn-lg">
                 <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-                Back
+                Back to Task Manager
             </a>
 
             <button type="submit" class="btn btn-danger btn-lg" ng-click="logout()">
@@ -17,13 +17,13 @@
     </div>
 </div>
 
-<div class="container form-panel">
-    <form class="taskName-form" ng-controller="profileController" data-ng-init="getUser()">
+<div class="container">
+    <form class="form-register" ng-controller="profileController" data-ng-init="getUser()">
         <h2 class="form-panel-heading" style="color: #FFFFFF">Check your data:</h2>
 
         <h3 class="form-panel-heading" style="color: #FFFFFF">Your first name: {{user.firstName}}</h3>
         <h3 class="form-panel-heading" style="color: #FFFFFF">Your last name: {{user.lastName}}</h3>
-        <button class="btn btn-warning">Update Profile</button>
-        <button class="btn btn-danger" ng-click="deleteUser()">Remove Account</button>
+        <button class="btn btn-warning btn-lg" ng-click="openUserEditProfile()">Update Profile</button>
+        <button class="btn btn-danger btn-lg" ng-click="deleteUser()">Remove Account</button>
     </form>
 </div>

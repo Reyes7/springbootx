@@ -14,6 +14,10 @@ userApp.config(function($routeProvider) {
         	templateUrl : 'resources/pages/user_panel.html',
         	controller  : 'panelController'
         })
+		.when('/user/update', {
+			templateUrl : 'resources/pages/update_user.html',
+			controller	: 'profileController'
+		})
 		.when('/user/profile', {
 			templateUrl : 'resources/pages/profile.html',
 			controller  : 'profileController'
@@ -57,29 +61,29 @@ userApp.controller('registerController', function($scope, $http, $window) {
 
 userApp.controller('loginController', function($scope, $http,$window) {
 
-    $scope.singIn = function() {
-    	$scope.submitting = true;
-    	$http({
-    	    method: 'POST',
-    	    url: '/loggin',
-    	    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    	    transformRequest: function(obj) {
-                    var str = [];
-                    for(var p in obj)
-                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                    return str.join("&");
-            },
-    	    data: {login: $scope.login, password: $scope.password}
-    	}).success(function(data) {
-    	    $scope.submitting = false;
+	$scope.singIn = function() {
+		$scope.submitting = true;
+		$http({
+			method: 'POST',
+			url: '/loggin',
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+			transformRequest: function(obj) {
+				var str = [];
+				for(var p in obj)
+					str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+				return str.join("&");
+			},
+			data: {login: $scope.login, password: $scope.password}
+		}).success(function(data) {
+			$scope.submitting = false;
 			$window.sessionStorage.setItem('login', data.login);
 			$window.open("#/user","_self");
-    	}).error(function(data, status) {
-    	    $scope.submitting = false;
-    	    if (status === 400)
-    		$scope.badRequest = data;
-    	});
-    };
+		}).error(function(data, status) {
+			$scope.submitting = false;
+			if (status === 400)
+				$scope.badRequest = data;
+		});
+	};
 });
 
 userApp.controller('taskController', function($scope, $http,$window,$route) {
@@ -136,6 +140,9 @@ userApp.controller('taskController', function($scope, $http,$window,$route) {
 });
 
 userApp.controller('profileController', function ($scope, $http,$window) {
+	$scope.userHelper = {login:$window.sessionStorage.getItem( 'login' ),
+		firstName:"", lastName:"", oldPassword:"", newPassword:""};
+
 	$scope.getUser = function () {
 		$http.get('/user/'+ $window.sessionStorage.getItem( 'login' )).
 				success(function (data) {
@@ -143,9 +150,17 @@ userApp.controller('profileController', function ($scope, $http,$window) {
 				});
 	}
 
+	$scope.updateUser = function () {
+		$http.put('/users',$scope.userHelper);
+	}
+
 	$scope.deleteUser = function(){
 		$http.delete('/user/'+ $window.sessionStorage.getItem( 'login' ));
 		$window.sessionStorage.clear();
 		$window.open("#/","_self");
+	}
+
+	$scope.openUserEditProfile = function(){
+		$window.open("#user/update","_self");
 	}
 });

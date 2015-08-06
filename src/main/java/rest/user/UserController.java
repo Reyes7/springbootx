@@ -25,24 +25,39 @@ public class UserController {
 
         if (findedUser == null) {
             String password = user.getPassword();
-
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String hashedPassword = passwordEncoder.encode(password);
-
             user.setPassword(hashedPassword);
-
             userService.addUser(user);
             return new ResponseEntity<User>(user, HttpStatus.OK);
         }
         return new ResponseEntity<User>(new User(), HttpStatus.BAD_REQUEST);
     }
 
+    @RequestMapping(value = "/users",method = RequestMethod.PUT)
+    public ResponseEntity<User> upadateUser(@RequestBody UserHelper userHelper){
+        String login = userHelper.getLogin();
+        String password = userHelper.getOldPassword();
+
+        System.out.println(userHelper);
+
+        User user = userService.getUserForLogin(login);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        boolean isDataValid = passwordEncoder.matches(password,user.getPassword());
+        if(isDataValid){
+            String newPasswordEncrypt = passwordEncoder.encode(userHelper.getNewPassword());
+            userHelper.setNewPassword(newPasswordEncrypt);
+            userService.updateUser(userHelper);
+            User updatedUser = userService.getUserForLogin(login);
+            return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
+        }
+        return new ResponseEntity<User>(new User(), HttpStatus.BAD_REQUEST);
+    }
 
     @RequestMapping(value = "/loggin",method = RequestMethod.POST)
     public ResponseEntity<User> logging(@RequestParam(value = "login") String login,
-                        @RequestParam(value = "password") String password){
+                                        @RequestParam(value = "password") String password){
         User user = userService.getUserForLogin(login);
-
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         boolean isDataValid = passwordEncoder.matches(password, user.getPassword());
 

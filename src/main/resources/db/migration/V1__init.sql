@@ -3,7 +3,7 @@ CREATE TABLE USER (
   first_name VARCHAR(30),
   last_name  VARCHAR(50),
   login      VARCHAR(20),
-  password   VARCHAR(60),
+  oldPassword   VARCHAR(60),
 
   PRIMARY KEY(id)
 );
@@ -18,5 +18,5 @@ CREATE TABLE TASK (
 );
 
 
---INSERT INTO USER (first_name,last_name,login,password) VALUES ('John', 'Rambo','JohnDeath','t454@$#$!@RCF@!E@EX');
---INSERT INTO USER (first_name,last_name,login,password) VALUES ('Johny','Bravo','Bravo007','f4@%@$QTQC42t34tfaadx');
+--INSERT INTO USER (first_name,last_name,login,oldPassword) VALUES ('John', 'Rambo','JohnDeath','t454@$#$!@RCF@!E@EX');
+--INSERT INTO USER (first_name,last_name,login,oldPassword) VALUES ('Johny','Bravo','Bravo007','f4@%@$QTQC42t34tfaadx');

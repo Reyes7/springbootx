@@ -8,20 +8,21 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
-    public Iterable<User> getAllUsers() {
-        return repository.findAll();
-    }
-
-    public User addUser(User user) {
-        return repository.save(user);
-    }
-
     public User getUserForLogin(String login){
         return repository.findByLogin(login);
     }
 
-    public User getUserForId(int id){
-        return repository.findById(id);
+    public Iterable<User> getAllUsers() {
+        return repository.findAll();
+    }
+
+    public void updateUser(UserHelper userHelper){
+        repository.updateUser(userHelper.getFirstName(),userHelper.getLastName(),
+                              userHelper.getNewPassword(), userHelper.getLogin());
+    }
+
+    public User addUser(User user) {
+        return repository.save(user);
     }
 
     public void deleteUser(int id){
