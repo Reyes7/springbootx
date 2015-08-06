@@ -30,13 +30,6 @@ public class TaskController {
         return taskService.getAllTasks();
     }
 
-
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public ResponseEntity<Task> updateTask(@PathVariable("id") int id) {
-        Task task = taskService.updateTask(id);
-        return new ResponseEntity<Task>(task, HttpStatus.OK);
-    }
-
     @RequestMapping(value = "{login}",
                     method = RequestMethod.POST,
                     consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -46,6 +39,12 @@ public class TaskController {
         task.setUser(user);
 
         taskService.addTask(task);
+        return new ResponseEntity<Task>(task, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Task> updateTask(@PathVariable("id") int id) {
+        Task task = taskService.updateTask(id);
         return new ResponseEntity<Task>(task, HttpStatus.OK);
     }
 
