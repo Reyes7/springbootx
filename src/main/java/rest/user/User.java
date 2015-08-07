@@ -1,11 +1,13 @@
 package rest.user;
 
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.cloud.cloudfoundry.com.fasterxml.jackson.annotation.JsonIgnore;
 import rest.task.Task;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,6 +26,7 @@ public class User {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")
+    @Cascade(value = CascadeType.DELETE)
     private Set<Task> tasks = new HashSet<Task>();
 
     public User(){
