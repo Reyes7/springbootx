@@ -11,7 +11,9 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends CrudRepository<User,Integer>{
-    User findByLogin(String login);
+
+//    @Query("SELECT u FROM User u where u.login=:login")
+    User findByLogin(/*@Param("login") */String login);
 
     List<User> findByLastName(String lastName);
 

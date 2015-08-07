@@ -1,8 +1,8 @@
 CREATE TABLE TASK (
-  id INTEGER PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   task_name VARCHAR(30),
   done      BOOLEAN,
   user_id   INTEGER,
 
-  FOREIGN KEY(user_id) REFERENCES "USER"(id)
+  FOREIGN KEY(user_id) REFERENCES _USER(id)
 );

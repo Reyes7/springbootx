@@ -1,21 +1,25 @@
 package rest.task;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import rest.user.User;
 
 import javax.persistence.*;
 
 @Entity
+@Table
 public class Task {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Generated(GenerationTime.INSERT)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
     private String taskName;
     private boolean done;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn
     @JsonIgnore
     private User user;
 

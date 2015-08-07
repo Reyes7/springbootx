@@ -1,5 +1,7 @@
 package rest.user;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.springframework.cloud.cloudfoundry.com.fasterxml.jackson.annotation.JsonIgnore;
 import rest.task.Task;
 
@@ -8,10 +10,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "_USER")
 public class User {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Generated(GenerationTime.INSERT)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
     private String firstName;
     private String lastName;
@@ -19,7 +23,7 @@ public class User {
     private String password;
 
     @JsonIgnore
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private Set<Task> tasks = new HashSet<Task>();
 
     public User(){

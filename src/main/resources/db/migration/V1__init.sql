@@ -1,7 +1,7 @@
-CREATE TABLE "USER" (
-  id INTEGER PRIMARY KEY ,
+CREATE TABLE _USER(
+  id SERIAL PRIMARY KEY ,
   first_name VARCHAR(30),
   last_name  VARCHAR(50),
   login      VARCHAR(20),
-  oldPassword   VARCHAR(60)
+  password   VARCHAR(60)
 );
