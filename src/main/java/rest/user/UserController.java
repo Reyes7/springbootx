@@ -45,6 +45,10 @@ public class UserController {
         String password = userHelper.getOldPassword();
 
         User user = userService.getUserForLogin(login);
+
+        if(user == null)
+            return new ResponseEntity<User>(new User(), HttpStatus.NOT_FOUND);
+
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         boolean isDataValid = passwordEncoder.matches(password,user.getPassword());
         if(isDataValid){
@@ -62,18 +66,23 @@ public class UserController {
                                         @RequestParam(value = "password") String password){
         log.debug("logging");
         User user = userService.getUserForLogin(login);
+        if(user == null)
+            return new ResponseEntity<User>(new User(), HttpStatus.NOT_FOUND);
+
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         boolean isDataValid = passwordEncoder.matches(password,user.getPassword());
         if(isDataValid){
             return new ResponseEntity<User>(user,HttpStatus.OK);
         }
-        return new ResponseEntity<User>(new User(),HttpStatus.NOT_FOUND);
+        return new ResponseEntity<User>(new User(),HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/user/{login}",method = RequestMethod.GET)
     public ResponseEntity<User> getUser(@PathVariable String login){
         log.debug("get user");
         User user = userService.getUserForLogin(login);
+        if(user == null)
+            return new ResponseEntity<User>(new User(), HttpStatus.NOT_FOUND);
         return new ResponseEntity<User>(user,HttpStatus.OK);
     }
 

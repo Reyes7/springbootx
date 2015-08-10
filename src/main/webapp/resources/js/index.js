@@ -152,6 +152,7 @@ userApp.controller('profileController', function ($scope, $http,$window) {
 
 	$scope.updateUser = function () {
 		$http.put('/users',$scope.userHelper);
+		$window.open("#/user/profile","_self");
 	}
 
 	$scope.deleteUser = function(){
