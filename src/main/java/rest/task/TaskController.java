@@ -36,8 +36,10 @@ public class TaskController {
                     produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Task> addTask(@PathVariable String login, @RequestBody Task task) {
         User user = userService.getUserForLogin(login);
-        task.setUser(user);
+        if(user == null)
+            return new ResponseEntity<Task>(new Task(), HttpStatus.NOT_FOUND);
 
+        task.setUser(user);
         taskService.addTask(task);
         return new ResponseEntity<Task>(task, HttpStatus.OK);
     }
@@ -45,11 +47,13 @@ public class TaskController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Task> updateTask(@PathVariable("id") int id) {
         Task task = taskService.updateTask(id);
+        if(task == null)
+            return new ResponseEntity<Task>(new Task(), HttpStatus.NOT_FOUND);
         return new ResponseEntity<Task>(task, HttpStatus.OK);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public void deleteTaskById(@PathVariable("id") int id) {
+    public void deleteTask(@PathVariable("id") int id) {
         taskService.removeTask(id);
     }
 }
