@@ -9,7 +9,7 @@ import rest.user.User;
 import rest.user.UserService;
 
 /**
- * Created by R on 2015-08-16.
+ * Created by Reyes on 2015-08-16.
  */
 
 @Component

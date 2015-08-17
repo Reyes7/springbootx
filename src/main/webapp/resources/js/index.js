@@ -24,6 +24,17 @@ userApp.config(function($routeProvider) {
 		});
 });
 
+userApp.controller('loginController', function($scope, $http,$window) {
+	$scope.singIn = function() {
+		$http.post("/login", "username=" + $scope.login + "&password=" + $scope.password, {
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		}).then(function(data) {
+			sessionStorage.setItem("session",data);
+			$window.open("#/user","_self");
+		});
+	};
+});
+
 userApp.controller('panelController', function($scope, $window) {
 	$scope.login = $window.sessionStorage.getItem( 'login' )
 
@@ -57,33 +68,6 @@ userApp.controller('registerController', function($scope, $http, $window) {
     		$scope.badRequest = 'The name is already used.';
     	});
     };
-});
-
-userApp.controller('loginController', function($scope, $http,$window) {
-
-	$scope.singIn = function() {
-		$scope.submitting = true;
-		$http({
-			method: 'POST',
-			url: '/loggin',
-			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-			transformRequest: function(obj) {
-				var str = [];
-				for(var p in obj)
-					str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-				return str.join("&");
-			},
-			data: {login: $scope.login, password: $scope.password}
-		}).success(function(data) {
-			$scope.submitting = false;
-			$window.sessionStorage.setItem('login', data.login);
-			$window.open("#/user","_self");
-		}).error(function(data, status) {
-			$scope.submitting = false;
-			if (status === 400)
-				$scope.badRequest = data;
-		});
-	};
 });
 
 userApp.controller('taskController', function($scope, $http,$window,$route) {

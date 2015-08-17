@@ -3,13 +3,9 @@ package rest.config;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import rest.user.User;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
-/**
- * Created by R on 2015-08-16.
- */
 public class AccountUserDetails implements UserDetails {
     private final User user;
 

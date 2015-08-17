@@ -22,6 +22,7 @@ public class UserController {
         return userService.getAllUsers();
     }//http://localhost:8080/users
 
+    @PreAuthorize("permitAll")
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public ResponseEntity<User> addUser(@RequestBody User user) {
         log.debug("add user");
@@ -62,6 +63,7 @@ public class UserController {
         return new ResponseEntity<User>(new User(), HttpStatus.BAD_REQUEST);
     }
 
+    @PreAuthorize("permitAll")
     @RequestMapping(value = "/loggin",method = RequestMethod.POST)
     public ResponseEntity<User> logging(@RequestParam(value = "login") String login,
                                         @RequestParam(value = "password") String password){
@@ -78,7 +80,6 @@ public class UserController {
         return new ResponseEntity<User>(new User(),HttpStatus.BAD_REQUEST);
     }
 
-    @PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #login)")
     @RequestMapping(value = "/user/{login}",method = RequestMethod.GET)
     public ResponseEntity<User> getUser(@PathVariable String login){
         log.debug("get user");
@@ -88,7 +89,6 @@ public class UserController {
         return new ResponseEntity<User>(user,HttpStatus.OK);
     }
 
-    @PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #login)")
     @RequestMapping(value = "/user/{login}",method = RequestMethod.DELETE)
     public void deleteUser(@PathVariable String login){
         log.debug("delete user");
