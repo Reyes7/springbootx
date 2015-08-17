@@ -1,14 +1,14 @@
 <div class="container">
-    <form class="form-signin" action="j_spring_security_check" method="post">
+    <form class="form-signin" ng-controller="loginController">
         <h2 class="form-signin-heading" style="color: #FFFFFF">Please sign in</h2>
         <label for="inputLogin" class="sr-only">Login</label>
         <input type="login" id="inputLogin" class="form-control"
-               placeholder="Login" autofocus>
+               placeholder="Login" autofocus ng-model="login">
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control"
-               placeholder="Password">
+                placeholder="Password" ng-model="password">
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit" value="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="singIn()">Sign in</button>
         <a href="#register" class="btn btn-lg btn-primary btn-block" type="link" >Register</a>
     </form>
 </div>

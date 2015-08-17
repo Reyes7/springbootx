@@ -58,3 +58,7 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
