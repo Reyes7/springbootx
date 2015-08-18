@@ -30,7 +30,7 @@ userApp.controller('loginController', function($scope, $http,$window) {
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		}).then(function(data) {
 			sessionStorage.setItem("session",data);
-			$window.open("#/user","_self");
+			$scope.pom = data
 		});
 	};
 });
