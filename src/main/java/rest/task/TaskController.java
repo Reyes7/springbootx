@@ -9,7 +9,7 @@ import rest.user.User;
 import rest.user.UserService;
 
 @RestController
-@RequestMapping(value = "/tasks")
+@RequestMapping(value = "/api/tasks")
 public class TaskController {
 
     @Autowired

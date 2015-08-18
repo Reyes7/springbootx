@@ -26,12 +26,15 @@ userApp.config(function($routeProvider) {
 
 userApp.controller('loginController', function($scope, $http,$window) {
 	$scope.singIn = function() {
-		$http.post("/login", "username=" + $scope.login + "&password=" + $scope.password, {
+		var data = "login=" + encodeURIComponent($scope.login) +
+				"&password=" + encodeURIComponent($scope.password);
+		$http.post("/api/authenticate", data, {
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		}).success(function(data, status, headers, config){
+			console.log("authentication succeeded ")
 			sessionStorage.setItem("session",data);
 		}).error(function(data, status, headers, config){
-			console.log("error")
+			console.log("authentication failed")
 		});
 	};
 });
@@ -49,26 +52,21 @@ userApp.controller('panelController', function($scope, $window) {
 	}
 });
 
-userApp.controller('registerController', function($scope, $http, $window) {
-    $scope.user = {firstName:"", lastName:"", login:"", password:""};
+userApp.controller('registerController', function ($scope, $http, $window) {
+	$scope.user = {firstName: "", lastName: "", login: "", password: ""};
 
-    $scope.submit = function() {
-    	$scope.submitting = true;
-    	$http({
-    	    method: 'POST',
-    	    url: '/users',
-    	    data: $scope.user
-    	}).success(function(data) {
-    	    $scope.submitting = false;
-    	    $window.open("#/","_self");
-    	}).error(function(data, status) {
-    	    $scope.submitting = false;
-    	    if (status === 400)
-    		$scope.badRequest = data;
-    	    else if (status === 409)
-    		$scope.badRequest = 'The name is already used.';
-    	});
-    };
+	$scope.submit = function () {
+		$scope.submitting = true;
+		$http.post('/api/register', $scope.user).
+				success(function () {
+					$scope.submitting = false;
+					$window.open("#/", "_self");
+				}).
+				error(function (data, status) {
+					$scope.submitting = false;
+					console.log("failed to register as ", $scope.user.login);
+				});
+	};
 });
 
 userApp.controller('taskController', function($scope, $http,$window,$route) {
@@ -79,7 +77,7 @@ userApp.controller('taskController', function($scope, $http,$window,$route) {
 		$scope.submitting = true;
 		$http({
 			method: 'POST',
-			url: '/tasks/'+login,
+			url: '/api/tasks/'+login,
 			data: $scope.task
 		}).success(function(data) {
 			$scope.submitting = false;
@@ -100,7 +98,7 @@ userApp.controller('taskController', function($scope, $http,$window,$route) {
 		});
 
 		for(var i = 0; i < ids.length; i++) {
-			$http.get('/tasks/' + ids[i]);
+			$http.get('/api/tasks/' + ids[i]);
 		}
 
 		$route.reload();
@@ -113,7 +111,7 @@ userApp.controller('taskController', function($scope, $http,$window,$route) {
 		});
 
 		for(var i = 0; i < ids.length; i++) {
-			$http.delete('/tasks/' + ids[i]);
+			$http.delete('/api/tasks/' + ids[i]);
 		}
 
 		$route.reload();
@@ -129,19 +127,19 @@ userApp.controller('profileController', function ($scope, $http,$window) {
 		firstName:"", lastName:"", oldPassword:"", newPassword:""};
 
 	$scope.getUser = function () {
-		$http.get('/user/'+ $window.sessionStorage.getItem( 'login' )).
+		$http.get('/api/user/'+ $window.sessionStorage.getItem( 'login' )).
 				success(function (data) {
 					$scope.user = data;
 				});
 	}
 
 	$scope.updateUser = function () {
-		$http.put('/users',$scope.userHelper);
+		$http.put('/api/users',$scope.userHelper);
 		$window.open("#/user/profile","_self");
 	}
 
 	$scope.deleteUser = function(){
-		$http.delete('/user/'+ $window.sessionStorage.getItem( 'login' ));
+		$http.delete('/api/user/'+ $window.sessionStorage.getItem( 'login' ));
 		$window.sessionStorage.clear();
 		$window.open("#/","_self");
 	}
