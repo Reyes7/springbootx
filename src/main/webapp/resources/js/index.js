@@ -28,9 +28,10 @@ userApp.controller('loginController', function($scope, $http,$window) {
 	$scope.singIn = function() {
 		$http.post("/login", "username=" + $scope.login + "&password=" + $scope.password, {
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-		}).then(function(data) {
+		}).success(function(data, status, headers, config){
 			sessionStorage.setItem("session",data);
-			$scope.pom = data
+		}).error(function(data, status, headers, config){
+			console.log("error")
 		});
 	};
 });
