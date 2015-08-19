@@ -27,22 +27,6 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public ResponseEntity<User> addUser(@RequestBody User user) {
-        log.debug("add user");
-        String login = user.getLogin();
-        User findedUser = userService.getUserForLogin(login);
-
-        if (findedUser == null) {
-            String password = user.getPassword();
-            String hashedPassword = passwordEncoder.encode(password);
-            user.setPassword(hashedPassword);
-            userService.addUser(user);
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(new User(), HttpStatus.BAD_REQUEST);
-    }
-
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
     public ResponseEntity<User> upadateUser(@RequestBody UserHelper userHelper) {
         log.debug("update user");
@@ -63,25 +47,6 @@ public class UserController {
             User updatedUser = userService.getUserForLogin(login);
             return new ResponseEntity<>(updatedUser, HttpStatus.OK);
         }
-        return new ResponseEntity<>(new User(), HttpStatus.BAD_REQUEST);
-    }
-
-    @PreAuthorize("permitAll")
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<User> logging(
-            @RequestParam(value = "login") String login,
-            @RequestParam(value = "password") String password
-    ) {
-        log.debug("logging");
-        User user = userService.getUserForLogin(login);
-        if (user == null)
-            return new ResponseEntity<>(new User(), HttpStatus.NOT_FOUND);
-
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        boolean isDataValid = passwordEncoder.matches(password, user.getPassword());
-        if (isDataValid)
-            return new ResponseEntity<>(user, HttpStatus.OK);
-
         return new ResponseEntity<>(new User(), HttpStatus.BAD_REQUEST);
     }
 

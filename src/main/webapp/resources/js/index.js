@@ -31,24 +31,27 @@ userApp.controller('loginController', function($scope, $http,$window) {
 		$http.post("/api/authenticate", data, {
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		}).success(function(data, status, headers, config){
-			console.log("authentication succeeded ")
-			sessionStorage.setItem("session",data);
+			console.log("authentication succeeded ");
+			$window.sessionStorage.setItem("session",$scope.login);
+			$window.open("#/user", "_self");
 		}).error(function(data, status, headers, config){
 			console.log("authentication failed")
 		});
 	};
 });
 
-userApp.controller('panelController', function($scope, $window) {
-	$scope.login = $window.sessionStorage.getItem( 'login' )
+userApp.controller('panelController', function($scope,$http,$window) {
+	$scope.login = $window.sessionStorage.getItem('session');
 
 	$scope.openUserProfile = function(){
 		$window.open("#user/profile","_self");
-	}
+	};
 
 	$scope.logout = function() {
-		$window.sessionStorage.clear();
-		$window.open("#/","_self");
+		$http.get('/logout').success(function (data) {
+			$window.sessionStorage.clear();
+			$window.open("#/","_self");
+		});
 	}
 });
 
@@ -71,7 +74,7 @@ userApp.controller('registerController', function ($scope, $http, $window) {
 
 userApp.controller('taskController', function($scope, $http,$window,$route) {
 	$scope.task = {"taskName" : "", "done" : false};
-	var login = $window.sessionStorage.getItem( 'login' );
+	var login = $window.sessionStorage.getItem( 'session' );
 
 	$scope.addTask = function() {
 		$scope.submitting = true;
@@ -102,7 +105,7 @@ userApp.controller('taskController', function($scope, $http,$window,$route) {
 		}
 
 		$route.reload();
-	}
+	};
 
 	$scope.deleteTask = function() {
 		var selects = $('#table').bootstrapTable('getSelections');
@@ -118,33 +121,33 @@ userApp.controller('taskController', function($scope, $http,$window,$route) {
 	};
 
 	$('#table').bootstrapTable({
-		url: '/tasks/'+login
+		url: 'api/tasks/'+login
 	});
 });
 
-userApp.controller('profileController', function ($scope, $http,$window) {
-	$scope.userHelper = {login:$window.sessionStorage.getItem( 'login' ),
+userApp.controller('profileController', function ($scope, $http,$window,$route) {
+	$scope.userHelper = {login:$window.sessionStorage.getItem( 'session' ),
 		firstName:"", lastName:"", oldPassword:"", newPassword:""};
 
 	$scope.getUser = function () {
-		$http.get('/api/user/'+ $window.sessionStorage.getItem( 'login' )).
+		$http.get('/api/user/'+ $window.sessionStorage.getItem( 'session' )).
 				success(function (data) {
 					$scope.user = data;
 				});
-	}
+	};
 
 	$scope.updateUser = function () {
 		$http.put('/api/users',$scope.userHelper);
 		$window.open("#/user/profile","_self");
-	}
+	};
 
 	$scope.deleteUser = function(){
-		$http.delete('/api/user/'+ $window.sessionStorage.getItem( 'login' ));
+		$http.delete('/api/user/'+ $window.sessionStorage.getItem( 'session' ));
 		$window.sessionStorage.clear();
 		$window.open("#/","_self");
-	}
+	};
 
 	$scope.openUserEditProfile = function(){
 		$window.open("#user/update","_self");
-	}
+	};
 });
