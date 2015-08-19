@@ -46,7 +46,7 @@ public class UserControllerTest {
         users.add(new User("Johny", "Bravo", "jBravo", "johny123"));
         for (User user : users) {
             String jsonUser = new ObjectMapper().writeValueAsString(user);
-            mockMvc.perform(post("/users")
+            mockMvc.perform(post("api/users")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(jsonUser));
         }
@@ -62,7 +62,7 @@ public class UserControllerTest {
 
     @Test
     public void return_all_persisted_users() throws Exception {
-        mockMvc.perform(get("/users"))
+        mockMvc.perform(get("api/users"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
                 .andExpect(jsonPath("$[0].firstName", is("Martin")))
@@ -76,7 +76,7 @@ public class UserControllerTest {
         User user = new User("Test", "Test", "TestLogin", "abcdefghij");
         String jsonUser = new ObjectMapper().writeValueAsString(user);
 
-        mockMvc.perform(post("/users")
+        mockMvc.perform(post("api/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonUser))
                 .andExpect(status().isOk());
@@ -87,7 +87,7 @@ public class UserControllerTest {
     public void create_users_with_the_same_login_retun_bad_request() throws Exception {
         User user = new User("Martin", "Bravo", "jBravo", "bravo123");
         String jsonUser2 = new ObjectMapper().writeValueAsString(user);
-        mockMvc.perform(post("/users")
+        mockMvc.perform(post("api/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonUser2))
                 .andExpect(status().isBadRequest());
@@ -98,7 +98,7 @@ public class UserControllerTest {
         UserHelper userHelper = new UserHelper("jBravo", "Rambo", "John", "johny123", "john456");
         String jsonUserHelper = new ObjectMapper().writeValueAsString(userHelper);
 
-        mockMvc.perform(put("/users")
+        mockMvc.perform(put("api/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonUserHelper))
                 .andExpect(status().isOk());
@@ -109,7 +109,7 @@ public class UserControllerTest {
         UserHelper userHelper = new UserHelper("Test", "Test", "Test", "Test", "Test");
         String jsonUserHelper = new ObjectMapper().writeValueAsString(userHelper);
 
-        mockMvc.perform(put("/users")
+        mockMvc.perform(put("api/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonUserHelper))
                 .andExpect(status().isNotFound());
@@ -120,7 +120,7 @@ public class UserControllerTest {
         UserHelper userHelper = new UserHelper("jBravo", "Rambo", "John", "Bad Password", "john456");
         String jsonUserHelper = new ObjectMapper().writeValueAsString(userHelper);
 
-        mockMvc.perform(put("/users")
+        mockMvc.perform(put("api/users")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonUserHelper))
                 .andExpect(status().isBadRequest());
