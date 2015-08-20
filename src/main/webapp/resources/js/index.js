@@ -82,6 +82,8 @@ userApp.controller('taskController', function ($scope, $http, $window, $route) {
         $http.post('/api/tasks/' + login, $scope.task).
             success(function (data) {
                 $scope.tasks.push(data)
+                var inputTaskName = document.getElementById('inputTaskName');
+                inputTaskName.value = "";
             }).
             error(function (data, status) {
                 if (status === 400)
@@ -109,15 +111,21 @@ userApp.controller('taskController', function ($scope, $http, $window, $route) {
         }
     };
 
-    $scope.deleteTask = function () {
-        var selects = $('#table').bootstrapTable('getSelections');
-        ids = $.map(selects, function (row) {
-            return row.id;
-        });
-
-        for (var i = 0; i < ids.length; i++) {
-            $http.delete('/api/tasks/' + ids[i]);
+    $scope.deleteTask = function (id) {
+        var i;
+        for(i = 0; i< $scope.tasks.length;i++){
+            if(id == $scope.tasks[i].id){
+                break;
+            }
         }
+
+        $http.delete('/api/tasks/' + id).
+            success(function(){
+                $scope.tasks.splice(i);
+                console.log('deleted task with id: ',id);
+                $scope.getTasks();
+            });
+
     };
 
     $scope.getTasks = function () {

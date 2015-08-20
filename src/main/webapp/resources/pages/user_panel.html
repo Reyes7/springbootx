@@ -24,9 +24,7 @@
         <input type="taskName" id="inputTaskName" class="form-control"
                placeholder="Enter the name of Your New Task" ng-model="task.taskName"/>
 
-        <button class=".btn btn-primary" ng-click="addTask()">Add Task</button>
-        <button class=".btn btn-primary" ng-click="updateTask()">Change Status</button>
-        <button class=".btn btn-primary" ng-click="deleteTask()">Delete Task</button>
+        <button class=".btn btn-primary" ng-click="addTask()" autofocus hidden>Add Task</button>
         <h2 class="form-panel-heading" style="color: #FFFFFF">Your Tasks:</h2>
 
     </form>
@@ -40,6 +38,11 @@
         <tr ng-repeat="x in tasks">
             <td>{{ x.taskName }}</td>
             <td>{{ x.done }}</td>
+            <td>
+                <button ng-click="deleteTask(x.id)" style="color: #022F31 !important;">
+                    <span class="glyphicon glyphicon-trash"/>
+                </button>
+            </td>
         </tr>
     </table>
 </div>
