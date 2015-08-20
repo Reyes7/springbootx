@@ -38,3 +38,11 @@ label{
 .navbar-default .container {
   color: #022F31 !important;
 }
+
+th{
+  color: white;
+}
+
+tr{
+  color: white;
+}
