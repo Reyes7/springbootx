@@ -6,7 +6,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 public interface TaskRepository extends CrudRepository<Task,Integer>{
+
+    Optional<Task> findOneById(int id);
 
     @Query("SELECT t FROM Task t where t.taskName=:name")
     Iterable <Task> findByName(@Param("name") String name);

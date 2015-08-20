@@ -16,6 +16,10 @@ public class TaskService {
         return taskRepository.findOne(id);
     }
 
+    public Optional<Task> getOneTask(int id) {
+        return taskRepository.findOneById(id);
+    }
+
     public Iterable<Task> getAllTasks() {
         return taskRepository.findAll();
     }

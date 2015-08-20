@@ -11,6 +11,7 @@ import rest.user.User;
 import rest.user.UserService;
 
 import java.security.Principal;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/tasks")
@@ -32,12 +33,12 @@ public class TaskController {
     }
 
     @RequestMapping(method = RequestMethod.POST,
-                    consumes = MediaType.APPLICATION_JSON_VALUE,
-                    produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Task> addTask(@RequestBody Task task , Principal principal) {
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Task> addTask(@RequestBody Task task, Principal principal) {
         String login = principal.getName();
         User user = userService.getUserForLogin(login);
-        if(user == null)
+        if (user == null)
             return new ResponseEntity<Task>(HttpStatus.NOT_FOUND);
 
         task.setUser(user);
@@ -62,14 +63,18 @@ public class TaskController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteTask(@PathVariable("id") int id, Principal principal) {
+    public ResponseEntity<?> deleteTask(@PathVariable("id") int id, Principal principal) {
         String login = principal.getName();
-        Task task = taskService.getTask(id);
+        log.debug("removing task {} owned by {}", id, login);
 
-        if (task.getUser().getLogin().equals(login)) {
-            taskService.removeTask(id);
-            return new ResponseEntity<String>(HttpStatus.OK);
+        Optional<Task> task = taskService.getOneTask(id);
+        if (task.isPresent()) {
+            if (task.get().getUser().getLogin().equals(login)) {
+                taskService.removeTask(id);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<String>(HttpStatus.LOCKED);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
