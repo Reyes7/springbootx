@@ -79,7 +79,7 @@ userApp.controller('taskController', function ($scope, $http, $window, $route) {
     $scope.tasks = [];
 
     $scope.addTask = function () {
-        $http.post('/api/tasks/' + login, $scope.task).
+        $http.post('/api/tasks/', $scope.task).
             success(function (data) {
                 $scope.tasks.push(data)
                 var inputTaskName = document.getElementById('inputTaskName');
@@ -124,7 +124,6 @@ userApp.controller('taskController', function ($scope, $http, $window, $route) {
                 $scope.tasks.splice(i,1);
                 console.log('deleted task with id: ',id);
             });
-
     };
 
     $scope.getTasks = function () {

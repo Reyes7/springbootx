@@ -31,11 +31,11 @@ public class TaskController {
         return taskService.getTasksByUserLogin(login);
     }
 
-    @RequestMapping(value = "{login}",
-                    method = RequestMethod.POST,
+    @RequestMapping(method = RequestMethod.POST,
                     consumes = MediaType.APPLICATION_JSON_VALUE,
                     produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Task> addTask(@PathVariable String login, @RequestBody Task task) {
+    public ResponseEntity<Task> addTask(@RequestBody Task task , Principal principal) {
+        String login = principal.getName();
         User user = userService.getUserForLogin(login);
         if(user == null)
             return new ResponseEntity<Task>(new Task(), HttpStatus.NOT_FOUND);
