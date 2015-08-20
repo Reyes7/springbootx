@@ -148,7 +148,7 @@ userApp.controller('profileController', function ($scope, $http, $window, $route
     };
 
     $scope.getUser = function () {
-        $http.get('/api/user/' + $window.sessionStorage.getItem('session')).
+        $http.get('/api/users/user').
             success(function (data) {
                 $scope.user = data;
             });
@@ -160,7 +160,7 @@ userApp.controller('profileController', function ($scope, $http, $window, $route
     };
 
     $scope.deleteUser = function () {
-        $http.delete('/api/user/' + $window.sessionStorage.getItem('session'));
+        $http.delete('/api/users/');
         $window.sessionStorage.clear();
         $window.open("#/", "_self");
     };

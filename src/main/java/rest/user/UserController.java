@@ -10,8 +10,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserController {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
@@ -21,13 +23,13 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public Iterable<User> getUsers() {
         log.debug("get all users");
         return userService.getAllUsers();
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<User> upadateUser(@RequestBody UserHelper userHelper) {
         log.debug("update user");
         String login = userHelper.getLogin();
@@ -50,18 +52,20 @@ public class UserController {
         return new ResponseEntity<>(new User(), HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/user/{login}", method = RequestMethod.GET)
-    public ResponseEntity<User> getUser(@PathVariable String login) {
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public ResponseEntity<User> getUser(Principal principal) {
         log.debug("get user");
+        String login = principal.getName();
         User user = userService.getUserForLogin(login);
         if (user == null)
             return new ResponseEntity<>(new User(), HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/user/{login}", method = RequestMethod.DELETE)
-    public void deleteUser(@PathVariable String login) {
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void deleteUser(Principal principal) {
         log.debug("delete user");
+        String login = principal.getName();
         User user = userService.getUserForLogin(login);
         userService.deleteUser(user.getId());
     }
