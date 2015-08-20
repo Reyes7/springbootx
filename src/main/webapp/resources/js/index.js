@@ -61,14 +61,14 @@ userApp.controller('registerController', function ($scope, $http, $window) {
 	$scope.submit = function () {
 		$scope.submitting = true;
 		$http.post('/api/register', $scope.user).
-				success(function () {
-					$scope.submitting = false;
-					$window.open("#/", "_self");
-				}).
-				error(function (data, status) {
-					$scope.submitting = false;
-					console.log("failed to register as ", $scope.user.login);
-				});
+			success(function () {
+				$scope.submitting = false;
+				$window.open("#/", "_self");
+			}).
+			error(function (data, status) {
+				$scope.submitting = false;
+				console.log("failed to register as ", $scope.user.login);
+			});
 	};
 });
 
@@ -131,9 +131,9 @@ userApp.controller('profileController', function ($scope, $http,$window,$route) 
 
 	$scope.getUser = function () {
 		$http.get('/api/user/'+ $window.sessionStorage.getItem( 'session' )).
-				success(function (data) {
-					$scope.user = data;
-				});
+			success(function (data) {
+				$scope.user = data;
+			});
 	};
 
 	$scope.updateUser = function () {
