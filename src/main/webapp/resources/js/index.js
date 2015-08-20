@@ -121,9 +121,8 @@ userApp.controller('taskController', function ($scope, $http, $window, $route) {
 
         $http.delete('/api/tasks/' + id).
             success(function(){
-                $scope.tasks.splice(i);
+                $scope.tasks.splice(i,1);
                 console.log('deleted task with id: ',id);
-                $scope.getTasks();
             });
 
     };
