@@ -38,7 +38,7 @@ public class TaskController {
         String login = principal.getName();
         User user = userService.getUserForLogin(login);
         if(user == null)
-            return new ResponseEntity<Task>(new Task(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Task>(HttpStatus.NOT_FOUND);
 
         task.setUser(user);
         taskService.addTask(task);
@@ -47,16 +47,29 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Task> updateTask(@PathVariable("id") int id) {
-        taskService.updateTask(id);
+    public ResponseEntity<Task> updateTask(@PathVariable("id") int id, Principal principal) {
+        String login = principal.getName();
         Task task = taskService.getTask(id);
-        if(task == null)
-            return new ResponseEntity<Task>(new Task(), HttpStatus.NOT_FOUND);
-        return new ResponseEntity<Task>(task, HttpStatus.OK);
+
+        if (task.getUser().getLogin().equals(login)) {
+            taskService.updateTask(!task.isDone(),id);
+            Task updatedTask = taskService.getTask(id);
+            if (task == null)
+                return new ResponseEntity<Task>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Task>(updatedTask, HttpStatus.OK);
+        }
+        return new ResponseEntity<Task>(HttpStatus.LOCKED);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public void deleteTask(@PathVariable("id") int id) {
-        taskService.removeTask(id);
+    public ResponseEntity<String> deleteTask(@PathVariable("id") int id, Principal principal) {
+        String login = principal.getName();
+        Task task = taskService.getTask(id);
+
+        if (task.getUser().getLogin().equals(login)) {
+            taskService.removeTask(id);
+            return new ResponseEntity<String>(HttpStatus.OK);
+        }
+        return new ResponseEntity<String>(HttpStatus.LOCKED);
     }
 }

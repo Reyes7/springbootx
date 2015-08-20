@@ -36,9 +36,8 @@ public class TaskService {
         taskRepository.delete(id);
     }
 
-    public void updateTask(int id){
-        Task task = taskRepository.findOne(id);
-        taskRepository.updateTask(!task.isDone(),id);
+    public void updateTask(boolean done, int id){
+        taskRepository.updateTask(done,id);
     }
 
 }
