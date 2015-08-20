@@ -24,13 +24,6 @@ public class TaskController {
     @Autowired
     UserService userService;
 
-//    @RequestMapping(value = "{login}",
-//                    method = RequestMethod.GET,
-//                    produces = MediaType.APPLICATION_JSON_VALUE)
-//    public Iterable<Task> getTasksForLogin(@PathVariable String login) {
-//        return taskService.getTasksByUserLogin(login);
-//    }
-
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<Task> getTasks(Principal principal) {
         String login = principal.getName();
