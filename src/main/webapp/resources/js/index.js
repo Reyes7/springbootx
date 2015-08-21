@@ -93,22 +93,30 @@ userApp.controller('taskController', function ($scope, $http, $window, $route) {
             });
     };
 
-    $scope.updateTask = function () {
-        var selects = $('#table').bootstrapTable('getSelections');
-        ids = $.map(selects, function (row) {
-            return row.id;
-        });
+    $scope.updateTask = function (id) {
+        var i;
+        var status;
 
-        for (var i = 0; i < ids.length; i++) {
-            console.log("Update task with id: ", ids[i]);
-            $http.get('/api/tasks/' + ids[i]).
-                success(function (data) {
-                    console.log("Updated task: ", data.toString());
-                }).
-                error(function () {
-                    console.log('failed to update task');
-                });
+        for(i = 0; i< $scope.tasks.length;i++){
+            if(id == $scope.tasks[i].id){
+                break;
+            }
         }
+
+        if($scope.tasks[i].done==true){
+            status = false;
+        }else status = true;
+
+
+        $http.put('/api/tasks/' + id,
+            {
+                "taskName": $scope.tasks[i].taskName,
+                "done": status
+            }).
+            success(function(){
+                $scope.tasks[i].done = status;
+                console.log('updated task with id: ',id);
+            });
     };
 
     $scope.deleteTask = function (id) {

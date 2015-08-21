@@ -12,10 +12,6 @@ public class TaskService {
     @Autowired
     TaskRepository taskRepository;
 
-    public Task getTask(int id) {
-        return taskRepository.findOne(id);
-    }
-
     public Optional<Task> getOneTask(int id) {
         return taskRepository.findOneById(id);
     }
@@ -44,4 +40,7 @@ public class TaskService {
         taskRepository.updateTask(done,id);
     }
 
+    public Task save(Task dbTask) {
+        return taskRepository.save(dbTask);
+    }
 }

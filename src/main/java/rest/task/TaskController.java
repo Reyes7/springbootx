@@ -47,19 +47,27 @@ public class TaskController {
         return new ResponseEntity<Task>(task, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Task> updateTask(@PathVariable("id") int id, Principal principal) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Task> updateTask(
+            @PathVariable("id") int id,
+            @RequestBody Task _task,
+            Principal principal
+    ) {
         String login = principal.getName();
-        Task task = taskService.getTask(id);
 
-        if (task.getUser().getLogin().equals(login)) {
-            taskService.updateTask(!task.isDone(),id);
-            Task updatedTask = taskService.getTask(id);
-            if (task == null)
-                return new ResponseEntity<Task>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<Task>(updatedTask, HttpStatus.OK);
+        Optional<Task> oTask = taskService.getOneTask(id);
+        if (oTask.isPresent()) {
+            Task dbTask = oTask.get();
+            if (dbTask.getUser().getLogin().equals(login)) {
+                dbTask.setTaskName(_task.getTaskName());
+                dbTask.setDone(_task.isDone());
+
+                Task updatedTask = taskService.save(dbTask);
+                return new ResponseEntity<>(updatedTask, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<Task>(HttpStatus.LOCKED);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)

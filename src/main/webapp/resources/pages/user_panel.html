@@ -31,11 +31,16 @@
     <table id="tasks" class="table table-bordered">
         <thead>
         <tr>
+            <th>change</th>
             <th>task</th>
             <th>status</th>
+            <th>delete</th>
         </tr>
         </thead>
         <tr ng-repeat="x in tasks">
+            <td>
+                <input type="checkbox" ng-click="updateTask(x.id)">
+            </td>
             <td>{{ x.taskName }}</td>
             <td>{{ x.done }}</td>
             <td>
