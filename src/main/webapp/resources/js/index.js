@@ -95,42 +95,35 @@ userApp.controller('taskController', function ($scope, $http, $window, $route) {
 
     $scope.updateTask = function (id) {
         var i;
-        var status;
 
-        for(i = 0; i< $scope.tasks.length;i++){
-            if(id == $scope.tasks[i].id){
+        for (i = 0; i < $scope.tasks.length; i++) {
+            if (id == $scope.tasks[i].id) {
                 break;
             }
         }
 
-        if($scope.tasks[i].done==true){
-            status = false;
-        }else status = true;
-
-
         $http.put('/api/tasks/' + id,
             {
                 "taskName": $scope.tasks[i].taskName,
-                "done": status
+                "done": $scope.tasks[i].done
             }).
-            success(function(){
-                $scope.tasks[i].done = status;
-                console.log('updated task with id: ',id);
+            success(function () {
+                console.log('updated task with id: ', id);
             });
     };
 
     $scope.deleteTask = function (id) {
         var i;
-        for(i = 0; i< $scope.tasks.length;i++){
-            if(id == $scope.tasks[i].id){
+        for (i = 0; i < $scope.tasks.length; i++) {
+            if (id == $scope.tasks[i].id) {
                 break;
             }
         }
 
         $http.delete('/api/tasks/' + id).
-            success(function(){
-                $scope.tasks.splice(i,1);
-                console.log('deleted task with id: ',id);
+            success(function () {
+                $scope.tasks.splice(i, 1);
+                console.log('deleted task with id: ', id);
             });
     };
 

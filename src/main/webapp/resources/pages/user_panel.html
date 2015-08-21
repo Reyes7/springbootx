@@ -39,7 +39,7 @@
         </thead>
         <tr ng-repeat="x in tasks">
             <td>
-                <input type="checkbox" ng-click="updateTask(x.id)">
+                <input type="checkbox" ng-click="updateTask(x.id)" ng-model="x.done">
             </td>
             <td>{{ x.taskName }}</td>
             <td>{{ x.done }}</td>
