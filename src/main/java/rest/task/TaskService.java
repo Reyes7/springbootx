@@ -16,14 +16,6 @@ public class TaskService {
         return taskRepository.findOneById(id);
     }
 
-    public Iterable<Task> getAllTasks() {
-        return taskRepository.findAll();
-    }
-
-    public Iterable<Task> getTasksByName(String name){
-        return taskRepository.findByName(name);
-    }
-
     public Iterable<Task> getTasksByUserLogin(String login){
         return taskRepository.findByUserLogin(login);
     }
@@ -34,13 +26,5 @@ public class TaskService {
 
     public void removeTask(int id) {
         taskRepository.delete(id);
-    }
-
-    public void updateTask(boolean done, int id){
-        taskRepository.updateTask(done,id);
-    }
-
-    public Task save(Task dbTask) {
-        return taskRepository.save(dbTask);
     }
 }

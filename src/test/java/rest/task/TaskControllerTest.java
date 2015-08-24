@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -25,6 +27,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -35,14 +38,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
-@IntegrationTest
 public class TaskControllerTest {
 
     @Autowired
     private TaskRepository taskRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
+
+    @Autowired
+    private FilterChainProxy springSecurityFilterChain;
 
     @Autowired
     WebApplicationContext webApplicationContext;
@@ -51,83 +56,51 @@ public class TaskControllerTest {
 
     @Before
     public void setUp() throws Exception{
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+                .apply(springSecurity())
+                .addFilter(springSecurityFilterChain)
+                .build();
 
-        List<User> users = new ArrayList<User>();
-        users.add(new User("John", "Rambo", "jRambo", "abcdefgh"));
-        users.add(new User("Johny", "Bravo", "jBravo", "johny123"));
-        for (User user : users) {
-            String jsonUser = new ObjectMapper().writeValueAsString(user);
-            mockMvc.perform(post("/users")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(jsonUser));
-        }
+        User firstUser = new User("John", "Rambo", "jRambo", "abcdefgh");
+        User secondUser = new User("Johny", "Bravo", "jBravo", "johny123");
+        userRepository.save(firstUser);
+        userRepository.save(secondUser);
 
         List<Task> tasks = new ArrayList<Task>();
-        tasks.add(new Task("first_task", false));
-        tasks.add(new Task("second_task", true));
-        for (Task task : tasks) {
-            String jsonTask = new ObjectMapper().writeValueAsString(task);
-            mockMvc.perform(post("/tasks/jBravo")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(jsonTask));
-        }
+        Task firstTask = new Task("first_task", false);
+        Task secondTask = new Task("second_task", true);
+        Task thridTask = new Task("thrid_task", false);
 
-        Task task = new Task("thrid_task", false);
+        firstTask.setUser(firstUser);
+        secondTask.setUser(firstUser);
+        thridTask.setUser(secondUser);
+
+        taskRepository.save(firstTask);
+        taskRepository.save(secondTask);
+        taskRepository.save(thridTask);
+    }
+
+    @After
+    public void destroy() throws Exception{
+        userRepository.deleteAll();
+    }
+
+    @Test
+    @WithMockUser(username="jBravo", password = "johny123")
+    public void create_new_task_with_authorize_user_return_ok() throws Exception {
+        Task task = new Task("New Task",false);
         String jsonTask = new ObjectMapper().writeValueAsString(task);
 
-        mockMvc.perform(post("/tasks/jRambo")
+        mockMvc.perform(post("/api/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonTask))
                 .andExpect(status().isOk());
     }
 
-    @After
-    public void destroy() throws Exception{
-        userRepository.delete(userRepository.findByLogin("jBravo"));
-        userRepository.delete(userRepository.findByLogin("jRambo"));
-    }
-
     @Test
-    public void check_added_task_is_in_repository() throws Exception {
-        Task t = taskRepository.findByName("first_task").iterator().next();
-
-        mockMvc.perform(get("/tasks/"+t.getId()))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
-                .andExpect(jsonPath("$.taskName", is("first_task")))
-                .andExpect(jsonPath("$.done", is(true)));
-    }
-
-    @Test
-    public void add_task_to_not_existing_user_return_404() throws Exception {
-        Task task = new Task("New Task", true);
-        String jsonTask = new ObjectMapper().writeValueAsString(task);
-
-        mockMvc.perform(post("/tasks/someUser")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonTask))
-                .andExpect(status().isNotFound());
-    }
-
-    @Test
-    public void return_all_persisted_task() throws Exception {
-        mockMvc.perform(get("/tasks"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
-                .andExpect(jsonPath("$", hasSize(3)))
-                .andExpect(jsonPath("$[0].taskName", is("first_task")))
-                .andExpect(jsonPath("$[0].done", is(false)))
-                .andExpect(jsonPath("$[1].taskName", is("second_task")))
-                .andExpect(jsonPath("$[1].done", is(true)))
-                .andExpect(jsonPath("$[2].taskName", is("thrid_task")))
-                .andExpect(jsonPath("$[2].done", is(false)));
-    }
-
-    @Test
-    @Ignore
-    public void return_all_persisted_tasks_for_user() throws Exception {
-        mockMvc.perform(get("/tasks/jBravo"))
+    @WithMockUser(username="jRambo", password = "abcdefgh")
+    public void return_all_persisted_task_for_jRambo() throws Exception {
+        mockMvc.perform(get("/api/tasks"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -138,37 +111,57 @@ public class TaskControllerTest {
     }
 
     @Test
-    public void update_task_change_status_false_to_true() throws Exception {
-        Task t = taskRepository.findByName("first_task").iterator().next();
-        mockMvc.perform(get("/tasks/"+t.getId()))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
-                .andExpect(jsonPath("$.taskName", is("first_task")))
-                .andExpect(jsonPath("$.done", is(true)));
+    @WithMockUser(username="jRambo", password = "abcdefgh")
+    public void updated_task_with_new_status() throws Exception {
+        Task task = taskRepository.findByName("first_task").iterator().next();
+        task.setDone(true);
+
+        String jsonTask = new ObjectMapper().writeValueAsString(task);
+
+        mockMvc.perform(put("/api/tasks/"+task.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonTask))
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void update_task_change_status_true_to_false() throws Exception {
-        Task t = taskRepository.findByName("second_task").iterator().next();
-        mockMvc.perform(get("/tasks/"+t.getId()))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))
-                .andExpect(jsonPath("$.taskName", is("second_task")))
-                .andExpect(jsonPath("$.done", is(false)));
+    public void update_task_with_not_logged_user_return_unauthorized() throws Exception {
+        Task task = taskRepository.findByName("first_task").iterator().next();
+        task.setDone(true);
+
+        String jsonTask = new ObjectMapper().writeValueAsString(task);
+
+        mockMvc.perform(put("/api/tasks/"+task.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonTask))
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
-    public void update_not_existing_task_return_404() throws Exception {
-        mockMvc.perform(get("/tasks/11111"))
+    @WithMockUser(username="jRambo", password = "abcdefgh")
+    public void update_not_existing_task_return_notfound() throws Exception {
+        Task task = new Task("someTask",true);
+        String jsonTask = new ObjectMapper().writeValueAsString(task);
+
+        mockMvc.perform(put("/api/tasks/"+5702354)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonTask))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    public void deleted_task_not_existing_in_database() throws Exception {
+    @WithMockUser(username="jRambo", password = "abcdefgh")
+    public void delete_task() throws Exception {
         Task t = taskRepository.findByName("first_task").iterator().next();
 
-        mockMvc.perform(delete("/tasks/"+t.getId()));
-        mockMvc.perform(get("/tasks/"+t.getId()))
-                .andExpect(status().isNotFound());
+        mockMvc.perform(delete("/api/tasks/"+t.getId()))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    @WithMockUser(username="jRambo", password = "abcdefgh")
+    public void deleted_not_existing_task_return_no_content() throws Exception {
+        mockMvc.perform(delete("/api/tasks/"+242335))
+                .andExpect(status().isNoContent());
     }
 }

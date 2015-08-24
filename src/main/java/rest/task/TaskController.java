@@ -14,9 +14,8 @@ import java.security.Principal;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api/tasks")
+@RequestMapping("/api/tasks")
 public class TaskController {
-
     private final Logger log = LoggerFactory.getLogger(TaskController.class);
 
     @Autowired
@@ -62,7 +61,7 @@ public class TaskController {
                 dbTask.setTaskName(_task.getTaskName());
                 dbTask.setDone(_task.isDone());
 
-                Task updatedTask = taskService.save(dbTask);
+                Task updatedTask = taskService.addTask(dbTask);
                 return new ResponseEntity<>(updatedTask, HttpStatus.OK);
             }
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

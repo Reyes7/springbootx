@@ -63,16 +63,6 @@ public class Task {
         this.user = user;
     }
 
-    public static Task copyTask(Task task){
-        Task newTask = new Task();
-        newTask.id = task.getId();
-        newTask.taskName = task.getTaskName();
-        newTask.done = task.done;
-        newTask.user = task.user;
-
-        return newTask;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
