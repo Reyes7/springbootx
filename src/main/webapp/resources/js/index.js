@@ -59,14 +59,12 @@ userApp.controller('registerController', function ($scope, $http, $window) {
     $scope.user = {firstName: "", lastName: "", login: "", password: ""};
 
     $scope.submit = function () {
-        $scope.submitting = true;
         $http.post('/api/register', $scope.user).
             success(function () {
-                $scope.submitting = false;
                 $window.open("#/", "_self");
             }).
             error(function (data, status) {
-                $scope.submitting = false;
+                $scope.allert = "This Login is already in use"
                 console.log("failed to register as ", $scope.user.login);
             });
     };
