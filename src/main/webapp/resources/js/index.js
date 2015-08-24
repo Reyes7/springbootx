@@ -64,7 +64,10 @@ userApp.controller('registerController', function ($scope, $http, $window) {
                 $window.open("#/", "_self");
             }).
             error(function (data, status) {
-                $scope.allert = "This Login is already in use"
+                $.notify({
+                    message: 'User with login: ' + $scope.user.login + ' already exists',
+                    type: 'danger'
+                });
                 console.log("failed to register as ", $scope.user.login);
             });
     };
