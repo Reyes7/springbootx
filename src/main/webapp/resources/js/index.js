@@ -64,7 +64,7 @@ userApp.controller('registerController', function ($scope, $http, $window) {
     $scope.user = {firstName: "", lastName: "", login: "", password: ""};
 
     $scope.submit = function () {
-        if(validateEmptyFields($scope.user)==false) {
+        if(validateEmptyFields($scope.user)==false && validateRegistrationDataLength($scope.user)==true) {
             $http.post('/api/register', $scope.user).
                 success(function () {
                     $window.open("#/", "_self");
@@ -77,7 +77,7 @@ userApp.controller('registerController', function ($scope, $http, $window) {
     };
 });
 
-userApp.controller('taskController', function ($scope, $http, $window, $route) {
+userApp.controller('taskController', function ($scope, $http, $window) {
     $scope.task = {"taskName": "", "done": false};
     var login = $window.sessionStorage.getItem('session');
 
@@ -198,6 +198,28 @@ validateEmptyFields = function (user) {
         }
     }
     return isEmptyField;
+};
+
+validateRegistrationDataLength = function (user) {
+    var isValid = true;
+    if(user.firstName.length>30){
+        isValid = false;
+        show('first name can not longer more than 30 characters');
+    }
+    if(user.lastName.length>50){
+        isValid = false;
+        show('last name can not longer more than 50 characters');
+    }
+    if(user.login.length>20){
+        isValid = false;
+        show('last name can not longer more than 50 characters');
+    }
+    if(user.password.length>60){
+        isValid = false;
+        show('last name can not longer more than 50 characters');
+    }
+
+    return isValid;
 };
 
 show = function(message){
