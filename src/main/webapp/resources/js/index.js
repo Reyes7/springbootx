@@ -58,18 +58,37 @@ userApp.controller('panelController', function ($scope, $http, $window) {
 userApp.controller('registerController', function ($scope, $http, $window) {
     $scope.user = {firstName: "", lastName: "", login: "", password: ""};
 
+    show = function(message){
+        $.notify({
+            message: message,
+            type: 'danger'
+        });
+    };
+
+    validateEmptyFields = function (user) {
+        var isEmptyField = false;
+        for (var i in user) {
+            if (user.hasOwnProperty(i)) {
+                if (user[i].length == 0) {
+                    isEmptyField = true;
+                    show(i + ' field can not be empty');
+                }
+            }
+        }
+        return isEmptyField;
+    };
+
     $scope.submit = function () {
-        $http.post('/api/register', $scope.user).
-            success(function () {
-                $window.open("#/", "_self");
-            }).
-            error(function (data, status) {
-                $.notify({
-                    message: 'User with login: ' + $scope.user.login + ' already exists',
-                    type: 'danger'
+        if(validateEmptyFields($scope.user)==false) {
+            $http.post('/api/register', $scope.user).
+                success(function () {
+                    $window.open("#/", "_self");
+                }).
+                error(function (data, status) {
+                    show('User with login: ' + $scope.user.login + ' already exists');
+                    console.log("failed to register as ", $scope.user.login);
                 });
-                console.log("failed to register as ", $scope.user.login);
-            });
+        }
     };
 });
 
