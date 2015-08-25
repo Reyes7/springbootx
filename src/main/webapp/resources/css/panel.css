@@ -39,10 +39,20 @@ label{
   color: #022F31 !important;
 }
 
-th{
+.table th{
   color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: large;
 }
 
-tr{
+.table tr{
   color: white;
+  text-align: center;
+}
+
+.deleteButton {
+  color: #022F31 !important;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
 }

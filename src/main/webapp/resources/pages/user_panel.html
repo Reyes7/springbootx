@@ -38,13 +38,13 @@
         </tr>
         </thead>
         <tr ng-repeat="x in tasks">
-            <td>
+            <td width="4%">
                 <input type="checkbox" ng-click="updateTask(x.id)" ng-model="x.done">
             </td>
             <td>{{ x.taskName }}</td>
-            <td>{{ x.done }}</td>
-            <td>
-                <button ng-click="deleteTask(x.id)" style="color: #022F31 !important;">
+            <td width="13%">{{ x.done }}</td>
+            <td width="4%">
+                <button ng-click="deleteTask(x.id)" class="deleteButton">
                     <span class="glyphicon glyphicon-trash"/>
                 </button>
             </td>
