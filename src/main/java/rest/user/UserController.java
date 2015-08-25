@@ -38,7 +38,7 @@ public class UserController {
         User user = userService.getUserForLogin(login);
 
         if (user == null)
-            return new ResponseEntity<>(new User(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         boolean isDataValid = passwordEncoder.matches(password, user.getPassword());
@@ -49,7 +49,7 @@ public class UserController {
             User updatedUser = userService.getUserForLogin(login);
             return new ResponseEntity<>(updatedUser, HttpStatus.OK);
         }
-        return new ResponseEntity<>(new User(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)

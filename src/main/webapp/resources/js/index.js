@@ -165,8 +165,15 @@ userApp.controller('profileController', function ($scope, $http, $window, $route
     };
 
     $scope.updateUser = function () {
-        $http.put('/api/users', $scope.userHelper);
-        $window.open("#/user/profile", "_self");
+        if(validateEmptyFields($scope.userHelper)==false) {
+            $http.put('/api/users', $scope.userHelper).
+                success(function(response, status, headers, config){
+                    $window.open("#/user/profile", "_self");
+                }).
+                error(function(response, status, headers, config){
+                    show('Old password is incorrect !');
+                });
+        }
     };
 
     $scope.deleteUser = function () {
