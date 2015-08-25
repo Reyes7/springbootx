@@ -3,10 +3,10 @@
         <h2 class="form-signin-heading" style="color: #FFFFFF">Please sign in</h2>
         <label for="inputLogin" class="sr-only">Login</label>
         <input type="login" id="inputLogin" class="form-control"
-               placeholder="Login" autofocus ng-model="login">
+               placeholder="Login" autofocus ng-model="authData.login">
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control"
-                placeholder="Password" ng-model="password">
+                placeholder="Password" ng-model="authData.password">
 
         <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="singIn()">Sign in</button>
         <a href="#register" class="btn btn-lg btn-primary btn-block" type="link" >Register</a>

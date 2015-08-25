@@ -25,18 +25,23 @@ userApp.config(function ($routeProvider) {
 });
 
 userApp.controller('loginController', function ($scope, $http, $window) {
+    $scope.authData = {login: "", password: ""};
+
     $scope.singIn = function () {
-        var data = "login=" + encodeURIComponent($scope.login) +
-            "&password=" + encodeURIComponent($scope.password);
-        $http.post("/api/authenticate", data, {
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function (data, status, headers, config) {
-            console.log("authentication succeeded ");
-            $window.sessionStorage.setItem("session", $scope.login);
-            $window.open("#/user", "_self");
-        }).error(function (data, status, headers, config) {
-            console.log("authentication failed")
-        });
+        if(validateEmptyFields($scope.authData)==false) {
+            var data = "login=" + encodeURIComponent($scope.authData.login) +
+                "&password=" + encodeURIComponent($scope.authData.password);
+            $http.post("/api/authenticate", data, {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).success(function (data, status, headers, config) {
+                console.log("authentication succeeded ");
+                $window.sessionStorage.setItem("session", $scope.login);
+                $window.open("#/user", "_self");
+            }).error(function (data, status, headers, config) {
+                console.log("authentication failed");
+                show('incorrect login or password ! ');
+            });
+        }
     };
 });
 
@@ -57,26 +62,6 @@ userApp.controller('panelController', function ($scope, $http, $window) {
 
 userApp.controller('registerController', function ($scope, $http, $window) {
     $scope.user = {firstName: "", lastName: "", login: "", password: ""};
-
-    show = function(message){
-        $.notify({
-            message: message,
-            type: 'danger'
-        });
-    };
-
-    validateEmptyFields = function (user) {
-        var isEmptyField = false;
-        for (var i in user) {
-            if (user.hasOwnProperty(i)) {
-                if (user[i].length == 0) {
-                    isEmptyField = true;
-                    show(i + ' field can not be empty');
-                }
-            }
-        }
-        return isEmptyField;
-    };
 
     $scope.submit = function () {
         if(validateEmptyFields($scope.user)==false) {
@@ -190,3 +175,23 @@ userApp.controller('profileController', function ($scope, $http, $window, $route
         $window.open("#user/update", "_self");
     };
 });
+
+validateEmptyFields = function (user) {
+    var isEmptyField = false;
+    for (var i in user) {
+        if (user.hasOwnProperty(i)) {
+            if (user[i].length == 0) {
+                isEmptyField = true;
+                show(i + ' field can not be empty');
+            }
+        }
+    }
+    return isEmptyField;
+};
+
+show = function(message){
+    $.notify({
+        message: message,
+        type: 'danger'
+    });
+};
