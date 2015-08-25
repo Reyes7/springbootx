@@ -35,7 +35,7 @@ userApp.controller('loginController', function ($scope, $http, $window) {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             }).success(function (data, status, headers, config) {
                 console.log("authentication succeeded ");
-                $window.sessionStorage.setItem("session", $scope.login);
+                $window.sessionStorage.setItem("session", $scope.authData.login);
                 $window.open("#/user", "_self");
             }).error(function (data, status, headers, config) {
                 console.log("authentication failed");
@@ -84,18 +84,22 @@ userApp.controller('taskController', function ($scope, $http, $window, $route) {
     $scope.tasks = [];
 
     $scope.addTask = function () {
-        $http.post('/api/tasks/', $scope.task).
-            success(function (data) {
-                $scope.tasks.push(data)
-                var inputTaskName = document.getElementById('inputTaskName');
-                inputTaskName.value = "";
-            }).
-            error(function (data, status) {
-                if (status === 400)
-                    $scope.badRequest = data;
-                else if (status === 409)
-                    $scope.badRequest = 'Unkown Error !.';
-            });
+
+        if($scope.task.taskName.length>0) {
+            $http.post('/api/tasks/', $scope.task).
+                success(function (data) {
+                    $scope.tasks.push(data)
+                    var inputTaskName = document.getElementById('inputTaskName');
+                    inputTaskName.value = "";
+                    $scope.task.taskName ="";
+                }).
+                error(function (data, status) {
+                    if (status === 400)
+                        $scope.badRequest = data;
+                    else if (status === 409)
+                        $scope.badRequest = 'Unkown Error !.';
+                });
+        }else show('Task field can not be empty !');
     };
 
     $scope.updateTask = function (id) {
