@@ -212,11 +212,11 @@ validateRegistrationDataLength = function (user) {
     }
     if(user.login.length>20){
         isValid = false;
-        show('last name can not more longer than 20 characters');
+        show('login can not more longer than 20 characters');
     }
     if(user.password.length>60){
         isValid = false;
-        show('last name can not more longer than 60 characters');
+        show('password can not more longer than 60 characters');
     }
 
     return isValid;
