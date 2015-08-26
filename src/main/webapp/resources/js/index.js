@@ -204,19 +204,19 @@ validateRegistrationDataLength = function (user) {
     var isValid = true;
     if(user.firstName.length>30){
         isValid = false;
-        show('first name can not more longer than 30 characters');
+        show('first name can not more than 30 characters');
     }
     if(user.lastName.length>50){
         isValid = false;
-        show('last name can not more longer than 50 characters');
+        show('last name can not more than 50 characters');
     }
     if(user.login.length>20){
         isValid = false;
-        show('login can not more longer than 20 characters');
+        show('login can not more than 20 characters');
     }
     if(user.password.length>60){
         isValid = false;
-        show('password can not more longer than 60 characters');
+        show('password can not more than 60 characters');
     }
 
     return isValid;
