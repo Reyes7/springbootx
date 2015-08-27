@@ -24,29 +24,45 @@ userApp.config(function ($routeProvider,$translateProvider) {
         });
 
     $translateProvider.translations('en', {
+        //login page
         CHOOSE_LANG:        'Choose language',
         BUTTON_LANG_EN:     'English',
         BUTTON_LANG_DE:     'German',
         BUTTON_LANG_PL:     'Polish',
         LOGIN_TITLE:        'Please sign in',
+        LOGIN_FIELD:        'Login',
+        PASSWORD_FIELD:     'Password',
         LOGIN_BUTTON:       'Sign in',
-        REGISTER_BUTTON:    'Register'
+        REGISTER_BUTTON:    'Register',
+
+        //register page
+        REGISTER_TITLE:     'User Registration',
+        FIRST_NAME:         'User Registration',
+        LAST_NAME:          'User Registration',
+        LOGIN:              'Login',
+        PASSWORD:           'User Registration',
     });
     $translateProvider.translations('de', {
+        //login page
         CHOOSE_LANG:        'Wähle sprache',
         BUTTON_LANG_EN:     'Englisch',
         BUTTON_LANG_DE:     'Deutsch',
         BUTTON_LANG_PL:     'Polnisch',
         LOGIN_TITLE:        'Bitte loggen sich',
+        LOGIN_FIELD:        'Login',
+        PASSWORD_FIELD:     'Kennwort',
         LOGIN_BUTTON:       'Melden Sie sich an',
         REGISTER_BUTTON:    'Registrieren'
     });
     $translateProvider.translations('pl', {
+        //login page
         CHOOSE_LANG:        'Wybierz język',
         BUTTON_LANG_EN:     'Angielski',
         BUTTON_LANG_DE:     'Niemiecki',
         BUTTON_LANG_PL:     'Polski',
         LOGIN_TITLE:        'Zaloguj się',
+        LOGIN_FIELD:        'Login',
+        PASSWORD_FIELD:     'Hasło',
         LOGIN_BUTTON:       'Zaloguj',
         REGISTER_BUTTON:    'Zarejestruj'
     });
@@ -105,80 +121,6 @@ userApp.controller('registerController', function ($scope, $http, $window) {
                 });
         }
     };
-});
-
-userApp.controller('taskController', function ($scope, $http, $window) {
-    $scope.task = {"taskName": "", "done": false};
-    var login = $window.sessionStorage.getItem('session');
-
-    $scope.tasks = [];
-
-    $scope.addTask = function () {
-
-        if($scope.task.taskName.length>0) {
-            $http.post('/api/tasks/', $scope.task).
-                success(function (data) {
-                    $scope.tasks.push(data)
-                    var inputTaskName = document.getElementById('inputTaskName');
-                    inputTaskName.value = "";
-                    $scope.task.taskName ="";
-                }).
-                error(function (data, status) {
-                    if (status === 400)
-                        $scope.badRequest = data;
-                    else if (status === 409)
-                        $scope.badRequest = 'Unkown Error !.';
-                });
-        }else show('Task field can not be empty !');
-    };
-
-    $scope.updateTask = function (id) {
-        var i;
-
-        for (i = 0; i < $scope.tasks.length; i++) {
-            if (id == $scope.tasks[i].id) {
-                break;
-            }
-        }
-
-        $http.put('/api/tasks/' + id,
-            {
-                "taskName": $scope.tasks[i].taskName,
-                "done": $scope.tasks[i].done
-            }).
-            success(function () {
-                console.log('updated task with id: ', id);
-            });
-    };
-
-    $scope.deleteTask = function (id) {
-        var i;
-        for (i = 0; i < $scope.tasks.length; i++) {
-            if (id == $scope.tasks[i].id) {
-                break;
-            }
-        }
-
-        $http.delete('/api/tasks/' + id).
-            success(function () {
-                $scope.tasks.splice(i, 1);
-                console.log('deleted task with id: ', id);
-            });
-    };
-
-    $scope.getTasks = function () {
-        $http.get('api/tasks').
-            success(function (data) {
-                $scope.tasks.length = 0;
-                Array.prototype.push.apply($scope.tasks, data);
-                console.log($scope.tasks);
-            }).
-            error(function () {
-                console.log('failed to get tasks');
-            });
-    };
-
-    $scope.getTasks();
 });
 
 userApp.controller('profileController', function ($scope, $http, $window) {

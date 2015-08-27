@@ -22,12 +22,10 @@
             <p translate="LOGIN_TITLE"></p>
         </h2>
 
-        <label for="inputLogin" class="sr-only">Login</label>
         <input type="login" id="inputLogin" class="form-control"
-               placeholder="Login" autofocus ng-model="authData.login">
-        <label for="inputPassword" class="sr-only">Password</label>
+               placeholder="{{'LOGIN_FIELD' | translate}}" autofocus ng-model="authData.login">
         <input type="password" id="inputPassword" class="form-control"
-                placeholder="Password" ng-model="authData.password">
+                placeholder="{{'PASSWORD_FIELD' | translate}}" ng-model="authData.password">
 
         <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="singIn()" translate="LOGIN_BUTTON"></button>
         <a href="#register" class="btn btn-lg btn-primary btn-block" type="link" translate="REGISTER_BUTTON"></a>
