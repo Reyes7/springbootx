@@ -1,6 +1,6 @@
-var userApp = angular.module('userApp', ['ngRoute']);
+var userApp = angular.module('userApp', ['pascalprecht.translate','ngRoute']);
 
-userApp.config(function ($routeProvider) {
+userApp.config(function ($routeProvider,$translateProvider) {
     $routeProvider
         .when('/', {
             templateUrl: 'resources/pages/login.html',
@@ -22,6 +22,36 @@ userApp.config(function ($routeProvider) {
             templateUrl: 'resources/pages/profile.html',
             controller: 'profileController'
         });
+
+    $translateProvider.translations('en', {
+        CHOOSE_LANG:        'Choose language',
+        BUTTON_LANG_EN:     'English',
+        BUTTON_LANG_DE:     'German',
+        BUTTON_LANG_PL:     'Polish',
+        LOGIN_TITLE:        'Please sign in',
+        LOGIN_BUTTON:       'Sign in',
+        REGISTER_BUTTON:    'Register'
+    });
+    $translateProvider.translations('de', {
+        CHOOSE_LANG:        'Wähle sprache',
+        BUTTON_LANG_EN:     'Englisch',
+        BUTTON_LANG_DE:     'Deutsch',
+        BUTTON_LANG_PL:     'Polnisch',
+        LOGIN_TITLE:        'Bitte loggen sich',
+        LOGIN_BUTTON:       'Melden Sie sich an',
+        REGISTER_BUTTON:    'Registrieren'
+    });
+    $translateProvider.translations('pl', {
+        CHOOSE_LANG:        'Wybierz język',
+        BUTTON_LANG_EN:     'Angielski',
+        BUTTON_LANG_DE:     'Niemiecki',
+        BUTTON_LANG_PL:     'Polski',
+        LOGIN_TITLE:        'Zaloguj się',
+        LOGIN_BUTTON:       'Zaloguj',
+        REGISTER_BUTTON:    'Zarejestruj'
+    });
+
+    $translateProvider.preferredLanguage('en');
 });
 
 userApp.controller('loginController', function ($scope, $http, $window) {
@@ -151,7 +181,7 @@ userApp.controller('taskController', function ($scope, $http, $window) {
     $scope.getTasks();
 });
 
-userApp.controller('profileController', function ($scope, $http, $window, $route) {
+userApp.controller('profileController', function ($scope, $http, $window) {
     $scope.userHelper = {
         login: $window.sessionStorage.getItem('session'),
         firstName: "", lastName: "", oldPassword: "", newPassword: ""
@@ -228,3 +258,9 @@ show = function(message){
         type: 'danger'
     });
 };
+
+userApp.controller('langController', function ($scope, $translate) {
+    $scope.changeLanguage = function (key) {
+        $translate.use(key);
+    };
+});

@@ -1,6 +1,27 @@
-<div class="container">
+<div class="container center_div">
+    <div id="navbar" class="navbar-collapse" ng-controller="langController">
+        <form class="navbar-form navbar-right">
+            <div class="dropdown">
+                <button class="btn btn-info dropdown-toggle" type="button" id="languageMenu" translate="CHOOSE_LANG" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                </button>
+
+                <ul class="dropdown-menu" aria-labelledby="languageMenu">
+                    <li><a ng-click="changeLanguage('en')" translate="BUTTON_LANG_EN"></a></li>
+                    <li><a ng-click="changeLanguage('de')" translate="BUTTON_LANG_DE"></a></li>
+                    <li><a ng-click="changeLanguage('pl')" translate="BUTTON_LANG_PL"></a></li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container" ng-controller="langController">
     <form class="form-signin" ng-controller="loginController">
-        <h2 class="form-signin-heading" style="color: #FFFFFF">Please sign in</h2>
+        <h2 class="form-signin-heading" style="color: #FFFFFF">
+            <p translate="LOGIN_TITLE"></p>
+        </h2>
+
         <label for="inputLogin" class="sr-only">Login</label>
         <input type="login" id="inputLogin" class="form-control"
                placeholder="Login" autofocus ng-model="authData.login">
@@ -8,7 +29,7 @@
         <input type="password" id="inputPassword" class="form-control"
                 placeholder="Password" ng-model="authData.password">
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="singIn()">Sign in</button>
-        <a href="#register" class="btn btn-lg btn-primary btn-block" type="link" >Register</a>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="singIn()" translate="LOGIN_BUTTON"></button>
+        <a href="#register" class="btn btn-lg btn-primary btn-block" type="link" translate="REGISTER_BUTTON"></a>
     </form>
 </div>
