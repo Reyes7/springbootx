@@ -25,46 +25,79 @@ userApp.config(function ($routeProvider,$translateProvider) {
 
     $translateProvider.translations('en', {
         //login page
-        CHOOSE_LANG:        'Choose language',
-        BUTTON_LANG_EN:     'English',
-        BUTTON_LANG_DE:     'German',
-        BUTTON_LANG_PL:     'Polish',
-        LOGIN_TITLE:        'Please sign in',
-        LOGIN_FIELD:        'Login',
-        PASSWORD_FIELD:     'Password',
-        LOGIN_BUTTON:       'Sign in',
-        REGISTER_BUTTON:    'Register',
+        CHOOSE_LANG:                'Choose language',
+        BUTTON_LANG_EN:             'English',
+        BUTTON_LANG_DE:             'German',
+        BUTTON_LANG_PL:             'Polish',
+        LOGIN_TITLE:                'Please sign in',
+        LOGIN_FIELD:                'Login',
+        PASSWORD_FIELD:             'Password',
+        LOGIN_BUTTON:               'Sign in',
+        REGISTER_BUTTON:            'Register',
 
         //register page
-        REGISTER_TITLE:     'User Registration',
-        FIRST_NAME:         'User Registration',
-        LAST_NAME:          'User Registration',
-        LOGIN:              'Login',
-        PASSWORD:           'User Registration',
+        REGISTER_TITLE:             'User Registration',
+        FIRST_NAME:                 'First Name:',
+        LAST_NAME:                  'Last Name:',
+        LOGIN:                      'Login:',
+        PASSWORD:                   'Password:',
+        FIRST_NAME_FIELD:           'Enter First Name',
+        LAST_NAME_FIELD:            'Enter Last Name',
+        REGISTER_LOGIN_FIELD:       'Enter Login',
+        REGISTER_PASSWORD_FIELD:    'Enter Password',
+        DONE_BUTTON:                'Done',
+        BACK_BUTTON:                'Back to login'
+
     });
     $translateProvider.translations('de', {
         //login page
-        CHOOSE_LANG:        'Wähle sprache',
-        BUTTON_LANG_EN:     'Englisch',
-        BUTTON_LANG_DE:     'Deutsch',
-        BUTTON_LANG_PL:     'Polnisch',
-        LOGIN_TITLE:        'Bitte loggen sich',
-        LOGIN_FIELD:        'Login',
-        PASSWORD_FIELD:     'Kennwort',
-        LOGIN_BUTTON:       'Melden Sie sich an',
-        REGISTER_BUTTON:    'Registrieren'
+        CHOOSE_LANG:                'Wähle sprache',
+        BUTTON_LANG_EN:             'Englisch',
+        BUTTON_LANG_DE:             'Deutsch',
+        BUTTON_LANG_PL:             'Polnisch',
+        LOGIN_TITLE:                'Bitte loggen sich',
+        LOGIN_FIELD:                'Login',
+        PASSWORD_FIELD:             'Kennwort',
+        LOGIN_BUTTON:               'Melden Sie sich an',
+        REGISTER_BUTTON:            'Registrieren',
+
+        //register page
+        REGISTER_TITLE:             'Benutzer Anmelden',
+        FIRST_NAME:                 'Vorname:',
+        LAST_NAME:                  'Zuname:',
+        LOGIN:                      'Login:',
+        PASSWORD:                   'Kennwort:',
+        FIRST_NAME_FIELD:           'Geben Sie Vornamen',
+        LAST_NAME_FIELD:            'Geben Sie Nachnamen',
+        REGISTER_LOGIN_FIELD:       'Geben Sie Login',
+        REGISTER_PASSWORD_FIELD:    'Geben Sie Kennwort',
+        DONE_BUTTON:                'Fertig',
+        BACK_BUTTON:                'Zurück zum Login'
     });
     $translateProvider.translations('pl', {
         //login page
-        CHOOSE_LANG:        'Wybierz język',
-        BUTTON_LANG_EN:     'Angielski',
-        BUTTON_LANG_DE:     'Niemiecki',
-        BUTTON_LANG_PL:     'Polski',
-        LOGIN_TITLE:        'Zaloguj się',
-        LOGIN_FIELD:        'Login',
-        PASSWORD_FIELD:     'Hasło',
-        LOGIN_BUTTON:       'Zaloguj',
-        REGISTER_BUTTON:    'Zarejestruj'
+        CHOOSE_LANG:                'Wybierz język',
+        BUTTON_LANG_EN:             'Angielski',
+        BUTTON_LANG_DE:             'Niemiecki',
+        BUTTON_LANG_PL:             'Polski',
+        LOGIN_TITLE:                'Zaloguj się',
+        LOGIN_FIELD:                'Login',
+        PASSWORD_FIELD:             'Hasło',
+        LOGIN_BUTTON:               'Zaloguj',
+        REGISTER_BUTTON:            'Zarejestruj',
+
+        //register page
+        REGISTER_TITLE:             'Rejestracja Użytkownika',
+        FIRST_NAME:                 'Imię:',
+        LAST_NAME:                  'Nazwisko:',
+        LOGIN:                      'Login:',
+        PASSWORD:                   'Hasło:',
+        FIRST_NAME_FIELD:           'Podaj Imię',
+        LAST_NAME_FIELD:            'Podaj Nazwisko',
+        REGISTER_LOGIN_FIELD:       'Podaj Login',
+        REGISTER_PASSWORD_FIELD:    'Podaj Hasło',
+        DONE_BUTTON:                'Zrobione',
+        BACK_BUTTON:                'Powrót do strony logowania'
     });
 
     $translateProvider.preferredLanguage('en');
