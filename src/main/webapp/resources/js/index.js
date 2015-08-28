@@ -61,11 +61,11 @@ userApp.config(function ($routeProvider,$translateProvider) {
     });
     $translateProvider.translations('de', {
         //login page
-        CHOOSE_LANG:                'Wähle sprache',
+        CHOOSE_LANG:                'Wählen sprache',
         BUTTON_LANG_EN:             'Englisch',
         BUTTON_LANG_DE:             'Deutsch',
         BUTTON_LANG_PL:             'Polnisch',
-        LOGIN_TITLE:                'Bitte loggen sich',
+        LOGIN_TITLE:                'Bitte loggen Sie sich ein',
         LOGIN_FIELD:                'Login',
         PASSWORD_FIELD:             'Kennwort',
         LOGIN_BUTTON:               'Melden Sie sich an',
@@ -74,14 +74,14 @@ userApp.config(function ($routeProvider,$translateProvider) {
         //register page
         REGISTER_TITLE:             'Benutzer Anmelden',
         FIRST_NAME:                 'Vorname',
-        LAST_NAME:                  'Zuname',
+        LAST_NAME:                  'Nachname',
         LOGIN:                      'Login',
         PASSWORD:                   'Kennwort',
         FIRST_NAME_FIELD:           'Geben Sie Vornamen',
         LAST_NAME_FIELD:            'Geben Sie Nachnamen',
         REGISTER_LOGIN_FIELD:       'Geben Sie Login',
         REGISTER_PASSWORD_FIELD:    'Geben Sie Kennwort',
-        DONE_BUTTON:                'Fertig',
+        DONE_BUTTON:                'Getan',
         BACK_BUTTON:                'Zurück zum Login',
 
         //user panel
@@ -89,11 +89,11 @@ userApp.config(function ($routeProvider,$translateProvider) {
         PROFILE_BUTTON:             'Profil',
         LOGOUT_BUTTON:              'Ausloggen',
         TASK_TITLE:                 'Aufgabe',
-        TASK_FIELD:                 'Geben Sie den Namen Ihrer Aufgabe',
+        TASK_FIELD:                 'Geben Sie einen Namen für Ihre Aufgabe',
         TASK_LIST_HEADER:           'Ihre Aufgaben',
-        CHANGE_TASK:                'anderung',
+        CHANGE_TASK:                'andern',
         TASK_NAME:                  'aufgabe',
-        TASK_DELETE:                'entfernen'
+        TASK_DELETE:                'aufgabe löschen'
     });
     $translateProvider.translations('pl', {
         //login page
