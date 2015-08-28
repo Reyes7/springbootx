@@ -57,7 +57,15 @@ userApp.config(function ($routeProvider,$translateProvider) {
         TASK_LIST_HEADER:           'Your tasks',
         CHANGE_TASK:                'change',
         TASK_NAME:                  'task',
-        TASK_DELETE:                'delete'
+        TASK_DELETE:                'delete',
+
+        //user profile
+        BACK_BUTTON:                'Back to Task Manager',
+        DATA_TITLE:                 'Check your data',
+        FIRST_NAME_TITLE:           'Your first name',
+        LAST_NAME_TITLE:            'Your last name',
+        UPDATE_PROFILE_BUTTON:      'Update Profile',
+        REMOVE_ACCOUNT_BUTTON:      'Remove Account'
     });
     $translateProvider.translations('de', {
         //login page
@@ -93,7 +101,15 @@ userApp.config(function ($routeProvider,$translateProvider) {
         TASK_LIST_HEADER:           'Ihre Aufgaben',
         CHANGE_TASK:                'andern',
         TASK_NAME:                  'aufgabe',
-        TASK_DELETE:                'aufgabe löschen'
+        TASK_DELETE:                'löschen',
+
+        //user profile
+        BACK_BUTTON:                'Zurück zu den Task-Manager',
+        DATA_TITLE:                 'Überprüfen Sie Ihre Daten',
+        FIRST_NAME_TITLE:           'Ihr Vorname',
+        LAST_NAME_TITLE:            'Ihr Nachname',
+        UPDATE_PROFILE_BUTTON:      'Profil Aktualisieren',
+        REMOVE_ACCOUNT_BUTTON:      'Entfernen Sie Konto'
     });
     $translateProvider.translations('pl', {
         //login page
@@ -129,7 +145,15 @@ userApp.config(function ($routeProvider,$translateProvider) {
         TASK_LIST_HEADER:           'Zadania',
         CHANGE_TASK:                'zmień',
         TASK_NAME:                  'zadanie',
-        TASK_DELETE:                'usuń'
+        TASK_DELETE:                'usuń',
+
+        //user profile
+        BACK_BUTTON:                'Powrót do Managera Zadań',
+        DATA_TITLE:                 'Sprawdzić swoje dane',
+        FIRST_NAME_TITLE:           'Imię',
+        LAST_NAME_TITLE:            'Nazwisko',
+        UPDATE_PROFILE_BUTTON:      'Zaktualizuj Profil',
+        REMOVE_ACCOUNT_BUTTON:      'Usuń Konto'
     });
 
     $translateProvider.preferredLanguage('en');

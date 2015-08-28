@@ -1,24 +1,39 @@
-<div class="container center_div">
+<div class="container center_div" ng-controller="langController">
     <div id="navbar" class="navbar-collapse" ng-controller="panelController">
         <div class="navbar-header">
             <h1 class="form-panel-heading" style="color: #FFFFFF">Hello ! {{login}}</h1>
         </div>
         <form class="navbar-form navbar-right">
-            <a href="#/user/profile" type="submit" class="btn btn-success btn-lg">
-                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-                Back to Profile
-            </a>
+            <div class="btn-group inline">
+                <a href="#/user/profile" type="submit" class="btn btn-success btn-lg">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                    Back to Profile
+                </a>
 
-            <button type="submit" class="btn btn-danger btn-lg" ng-click="logout()">
-                Logout
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-            </button>
+                <div class="dropdown btn-group">
+                    <button class="btn btn-info btn-lg dropdown-toggle" type="button" data-toggle="dropdown">
+                        {{'CHOOSE_LANG' | translate}}
+                        <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                    </button>
+
+                    <ul class="dropdown-menu">
+                        <li><a ng-click="changeLanguage('en')" translate="BUTTON_LANG_EN"></a></li>
+                        <li><a ng-click="changeLanguage('de')" translate="BUTTON_LANG_DE"></a></li>
+                        <li><a ng-click="changeLanguage('pl')" translate="BUTTON_LANG_PL"></a></li>
+                    </ul>
+                </div>
+
+                <button type="submit" class="btn btn-danger btn-lg" ng-click="logout()">
+                    {{'LOGOUT_BUTTON' | translate}}
+                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                </button>
+            </div>
         </form>
     </div>
 </div>
 
 <div class="container">
-    <form class="form-register"  ng-controller="profileController">
+    <form class="form-register" ng-controller="profileController">
         <h2 class="form-register-heading" style="color: #FFFFFF">Update Your Data:</h2>
 
         <div class="form-group">
@@ -31,7 +46,7 @@
         <div class="form-group">
             <label for="lastname">Last Name:</label>
             <input type="text" class="form-control"
-                   id="lastname"placeholder="Enter Last Name"
+                   id="lastname" placeholder="Enter Last Name"
                    ng-model="userHelper.lastName">
         </div>
 
