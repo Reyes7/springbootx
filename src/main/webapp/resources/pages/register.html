@@ -22,28 +22,28 @@
         <h2 class="form-register-heading" style="color: #FFFFFF" translate="REGISTER_TITLE"></h2>
 
         <div class="form-group">
-            <label for="firstname" translate="FIRST_NAME"></label>
+            <label for="firstname">{{'FIRST_NAME' | translate}}:</label>
             <input type="text" class="form-control"
                    id="firstname" placeholder="{{'FIRST_NAME_FIELD' | translate}}"
                    ng-model="user.firstName">
         </div>
 
         <div class="form-group">
-            <label for="lastname" translate="LAST_NAME"></label>
+            <label for="lastname">{{'LAST_NAME' | translate}}:</label>
             <input type="text" class="form-control"
                    id="lastname"placeholder="{{'LAST_NAME_FIELD' | translate}}"
                    ng-model="user.lastName">
         </div>
 
         <div class="form-group">
-            <label for="login" translate="LOGIN_FIELD"></label>
+            <label for="login">{{'LOGIN_FIELD' | translate}}:</label>
             <input type="text" class="form-control"
                    id="login" placeholder="{{'REGISTER_LOGIN_FIELD' | translate}}"
                    ng-model="user.login">
         </div>
 
         <div class="form-group">
-            <label for="password" translate="PASSWORD_FIELD"></label>
+            <label for="password">{{'PASSWORD_FIELD' | translate}}:</label>
             <input type="text" class="form-control"
                    id="password" placeholder="{{'REGISTER_PASSWORD_FIELD' | translate}}"
                    ng-model="user.password">
