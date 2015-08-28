@@ -37,17 +37,27 @@ userApp.config(function ($routeProvider,$translateProvider) {
 
         //register page
         REGISTER_TITLE:             'User Registration',
-        FIRST_NAME:                 'First Name:',
-        LAST_NAME:                  'Last Name:',
-        LOGIN:                      'Login:',
-        PASSWORD:                   'Password:',
+        FIRST_NAME:                 'First Name',
+        LAST_NAME:                  'Last Name',
+        LOGIN:                      'Login',
+        PASSWORD:                   'Password',
         FIRST_NAME_FIELD:           'Enter First Name',
         LAST_NAME_FIELD:            'Enter Last Name',
         REGISTER_LOGIN_FIELD:       'Enter Login',
         REGISTER_PASSWORD_FIELD:    'Enter Password',
         DONE_BUTTON:                'Done',
-        BACK_BUTTON:                'Back to login'
+        BACK_BUTTON:                'Back to login',
 
+        //user panel
+        USER_TITLE:                 'Hello',
+        PROFILE_BUTTON:             'Profile',
+        LOGOUT_BUTTON:              'Logout',
+        TASK_TITLE:                 'Task',
+        TASK_FIELD:                 'Enter the name of your task',
+        TASK_LIST_HEADER:           'Your tasks',
+        CHANGE_TASK:                'change',
+        TASK_NAME:                  'task',
+        TASK_DELETE:                'delete'
     });
     $translateProvider.translations('de', {
         //login page
@@ -63,16 +73,27 @@ userApp.config(function ($routeProvider,$translateProvider) {
 
         //register page
         REGISTER_TITLE:             'Benutzer Anmelden',
-        FIRST_NAME:                 'Vorname:',
-        LAST_NAME:                  'Zuname:',
-        LOGIN:                      'Login:',
-        PASSWORD:                   'Kennwort:',
+        FIRST_NAME:                 'Vorname',
+        LAST_NAME:                  'Zuname',
+        LOGIN:                      'Login',
+        PASSWORD:                   'Kennwort',
         FIRST_NAME_FIELD:           'Geben Sie Vornamen',
         LAST_NAME_FIELD:            'Geben Sie Nachnamen',
         REGISTER_LOGIN_FIELD:       'Geben Sie Login',
         REGISTER_PASSWORD_FIELD:    'Geben Sie Kennwort',
         DONE_BUTTON:                'Fertig',
-        BACK_BUTTON:                'Zurück zum Login'
+        BACK_BUTTON:                'Zurück zum Login',
+
+        //user panel
+        USER_TITLE:                 'Willkommen',
+        PROFILE_BUTTON:             'Profil',
+        LOGOUT_BUTTON:              'Ausloggen',
+        TASK_TITLE:                 'Aufgabe',
+        TASK_FIELD:                 'Geben Sie den Namen Ihrer Aufgabe',
+        TASK_LIST_HEADER:           'Ihre Aufgaben',
+        CHANGE_TASK:                'anderung',
+        TASK_NAME:                  'aufgabe',
+        TASK_DELETE:                'entfernen'
     });
     $translateProvider.translations('pl', {
         //login page
@@ -88,16 +109,27 @@ userApp.config(function ($routeProvider,$translateProvider) {
 
         //register page
         REGISTER_TITLE:             'Rejestracja Użytkownika',
-        FIRST_NAME:                 'Imię:',
-        LAST_NAME:                  'Nazwisko:',
-        LOGIN:                      'Login:',
-        PASSWORD:                   'Hasło:',
+        FIRST_NAME:                 'Imię',
+        LAST_NAME:                  'Nazwisko',
+        LOGIN:                      'Login',
+        PASSWORD:                   'Hasło',
         FIRST_NAME_FIELD:           'Podaj Imię',
         LAST_NAME_FIELD:            'Podaj Nazwisko',
         REGISTER_LOGIN_FIELD:       'Podaj Login',
         REGISTER_PASSWORD_FIELD:    'Podaj Hasło',
         DONE_BUTTON:                'Zrobione',
-        BACK_BUTTON:                'Powrót do strony logowania'
+        BACK_BUTTON:                'Powrót do strony logowania',
+
+        //user panel
+        USER_TITLE:                 'Witaj',
+        PROFILE_BUTTON:             'Profil',
+        LOGOUT_BUTTON:              'Wyloguj',
+        TASK_TITLE:                 'Zadanie',
+        TASK_FIELD:                 'Wprowadź nazwę twojego zadania',
+        TASK_LIST_HEADER:           'Zadania',
+        CHANGE_TASK:                'zmień',
+        TASK_NAME:                  'zadanie',
+        TASK_DELETE:                'usuń'
     });
 
     $translateProvider.preferredLanguage('en');

@@ -1,40 +1,56 @@
-<div class="container center_div">
+<div class="container center_div" ng-controller="langController">
     <div id="navbar" class="navbar-collapse">
         <div class="navbar-header">
-            <h1 class="form-panel-heading" style="color: #FFFFFF">Hello ! {{login}}</h1>
+            <h1 class="form-panel-heading" style="color: #FFFFFF">{{'USER_TITLE' | translate}} ! {{login}}</h1>
         </div>
         <form class="navbar-form navbar-right">
-            <button type="submit" class="btn btn-success btn-lg" ng-click="openUserProfile()">
-                Profile
-                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-            </button>
+            <div class="btn-group inline">
 
-            <button type="submit" class="btn btn-danger btn-lg" ng-click="logout()">
-                Logout
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-            </button>
+                <button type="submit" class="btn btn-success btn-lg" ng-click="openUserProfile()">
+                    {{'PROFILE_BUTTON' | translate}}
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                </button>
+
+                <div class="dropdown btn-group">
+                    <button class="btn btn-info btn-lg dropdown-toggle" type="button" data-toggle="dropdown">
+                        {{'CHOOSE_LANG' | translate}}
+                        <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                    </button>
+
+                    <ul class="dropdown-menu">
+                        <li><a ng-click="changeLanguage('en')" translate="BUTTON_LANG_EN"></a></li>
+                        <li><a ng-click="changeLanguage('de')" translate="BUTTON_LANG_DE"></a></li>
+                        <li><a ng-click="changeLanguage('pl')" translate="BUTTON_LANG_PL"></a></li>
+                    </ul>
+                </div>
+
+                <button type="submit" class="btn btn-danger btn-lg" ng-click="logout()">
+                    {{'LOGOUT_BUTTON' | translate}}
+                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                </button>
+            </div>
         </form>
     </div>
 </div>
 
 <div class="container form-panel" ng-controller="taskController">
     <form class="taskName-form">
-        <h2 class="form-panel-heading" style="color: #FFFFFF">Task:</h2>
+        <h2 class="form-panel-heading" style="color: #FFFFFF">{{'TASK_TITLE' | translate}}:</h2>
 
         <input type="taskName" id="inputTaskName" class="form-control"
-               placeholder="Enter the name of Your New Task" ng-model="task.taskName"/>
+               placeholder="{{'TASK_FIELD' | translate}}" ng-model="task.taskName"/>
 
         <button class=".btn btn-primary" ng-click="addTask()" autofocus hidden>Add Task</button>
-        <h2 class="form-panel-heading" style="color: #FFFFFF">Your Tasks:</h2>
+        <h2 class="form-panel-heading" style="color: #FFFFFF">{{'TASK_LIST_HEADER' | translate}}:</h2>
 
     </form>
     <table id="tasks" class="table table-bordered">
         <thead>
         <tr>
-            <th>change</th>
-            <th>task</th>
+            <th>{{'CHANGE_TASK' | translate}}</th>
+            <th>{{'TASK_NAME' | translate}}</th>
             <th>status</th>
-            <th>delete</th>
+            <th>{{'TASK_DELETE' | translate}}</th>
         </tr>
         </thead>
         <tr ng-repeat="x in tasks">
