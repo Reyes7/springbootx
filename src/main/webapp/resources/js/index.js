@@ -65,7 +65,16 @@ userApp.config(function ($routeProvider,$translateProvider) {
         FIRST_NAME_TITLE:           'Your first name',
         LAST_NAME_TITLE:            'Your last name',
         UPDATE_PROFILE_BUTTON:      'Update Profile',
-        REMOVE_ACCOUNT_BUTTON:      'Remove Account'
+        REMOVE_ACCOUNT_BUTTON:      'Remove Account',
+
+        //update profile
+        UPDATE_TITLE:               'Update Your Data',
+        BACK_TO_PROFILE:            'Back to profile',
+        OLD_PASSWORD_TITLE:         'Old Password',
+        OLD_PASSWORD_FILED:         'Enter Old Password',
+        NEW_PASSWORD_TITLE:         'New Password',
+        NEW_PASSWORD_FIELD:         'Enter New Password',
+        UPDATE_BUTTON:              'Update'
     });
     $translateProvider.translations('de', {
         //login page
@@ -109,7 +118,16 @@ userApp.config(function ($routeProvider,$translateProvider) {
         FIRST_NAME_TITLE:           'Ihr Vorname',
         LAST_NAME_TITLE:            'Ihr Nachname',
         UPDATE_PROFILE_BUTTON:      'Profil Aktualisieren',
-        REMOVE_ACCOUNT_BUTTON:      'Entfernen Sie Konto'
+        REMOVE_ACCOUNT_BUTTON:      'Entfernen Sie Konto',
+
+        //update profile
+        UPDATE_TITLE:               'Aktualisieren Sie Angaben',
+        BACK_TO_PROFILE:            'Zurück zum Profil',
+        OLD_PASSWORD_TITLE:         'Altes Kennwort',
+        OLD_PASSWORD_FILED:         'Geben Altes Kennwort',
+        NEW_PASSWORD_TITLE:         'Neues Kennwort',
+        NEW_PASSWORD_FIELD:         'Geben Neues Kennwort',
+        UPDATE_BUTTON:              'Aktualisieren'
     });
     $translateProvider.translations('pl', {
         //login page
@@ -153,7 +171,16 @@ userApp.config(function ($routeProvider,$translateProvider) {
         FIRST_NAME_TITLE:           'Imię',
         LAST_NAME_TITLE:            'Nazwisko',
         UPDATE_PROFILE_BUTTON:      'Zaktualizuj Profil',
-        REMOVE_ACCOUNT_BUTTON:      'Usuń Konto'
+        REMOVE_ACCOUNT_BUTTON:      'Usuń Konto',
+
+        //update profile
+        UPDATE_TITLE:               'Zaktualizuj Swoje Dane',
+        BACK_TO_PROFILE:            'Powrót do Profilu',
+        OLD_PASSWORD_TITLE:         'Stare Hasło',
+        OLD_PASSWORD_FILED:         'Wprowadź Stare Hasło',
+        NEW_PASSWORD_TITLE:         'Nowe Hasło',
+        NEW_PASSWORD_FIELD:         'Wprowadź Nowe Hasło',
+        UPDATE_BUTTON:              'Zaktualizuj'
     });
 
     $translateProvider.preferredLanguage('en');

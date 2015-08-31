@@ -1,13 +1,13 @@
 <div class="container center_div" ng-controller="langController">
     <div id="navbar" class="navbar-collapse" ng-controller="panelController">
         <div class="navbar-header">
-            <h1 class="form-panel-heading" style="color: #FFFFFF">Hello ! {{login}}</h1>
+            <h1 class="form-panel-heading" style="color: #FFFFFF">{{'USER_TITLE' | translate}} ! {{login}}</h1>
         </div>
         <form class="navbar-form navbar-right">
             <div class="btn-group inline">
                 <a href="#/user/profile" type="submit" class="btn btn-success btn-lg">
                     <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-                    Back to Profile
+                    {{'BACK_TO_PROFILE' | translate}}
                 </a>
 
                 <div class="dropdown btn-group">
@@ -34,36 +34,38 @@
 
 <div class="container">
     <form class="form-register" ng-controller="profileController">
-        <h2 class="form-register-heading" style="color: #FFFFFF">Update Your Data:</h2>
+        <h2 class="form-register-heading" style="color: #FFFFFF">{{'UPDATE_TITLE' | translate}}:</h2>
 
         <div class="form-group">
-            <label for="firstname">First Name:</label>
+            <label for="firstname">{{'FIRST_NAME' | translate}}:</label>
             <input type="text" class="form-control"
-                   id="firstname" placeholder="Enter First Name"
+                   id="firstname" placeholder="{{'FIRST_NAME_FIELD' | translate}}"
                    ng-model="userHelper.firstName">
         </div>
 
         <div class="form-group">
-            <label for="lastname">Last Name:</label>
+            <label for="lastname">{{'LAST_NAME' | translate}}:</label>
             <input type="text" class="form-control"
-                   id="lastname" placeholder="Enter Last Name"
+                   id="lastname" placeholder="{{'LAST_NAME_FIELD' | translate}}"
                    ng-model="userHelper.lastName">
         </div>
 
         <div class="form-group">
-            <label for="oldPassword">Old Password:</label>
+            <label for="oldPassword">{{'OLD_PASSWORD_TITLE' | translate}}:</label>
             <input type="text" class="form-control"
-                   id="oldPassword" placeholder="Enter Old Password"
+                   id="oldPassword" placeholder="{{'OLD_PASSWORD_FILED' | translate}}"
                    ng-model="userHelper.oldPassword">
         </div>
 
         <div class="form-group">
-            <label for="newPassword">New Password:</label>
+            <label for="newPassword">{{'NEW_PASSWORD_TITLE' | translate}}:</label>
             <input type="text" class="form-control"
-                   id="newPassword" placeholder="Enter New Password"
+                   id="newPassword" placeholder="{{'NEW_PASSWORD_FIELD' | translate}}"
                    ng-model="userHelper.newPassword">
         </div>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="updateUser()">Update</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="updateUser()">{{'UPDATE_BUTTON' |
+            translate}}
+        </button>
     </form>
 </div>
